@@ -1,2 +1,9 @@
-# birdy-golf
-Prosjektoppgave i TDT4140 Programvarearkitektur
+# Birdy Golf
+TDT4140 Software Architecture project
+
+A simple mini golf game, built with: LibGdx, Box2D and Ashley
+
+## Installation
+- Clone the repo
+- Open build.gradle in Android Studio (4.1.0+)
+- Run the project
