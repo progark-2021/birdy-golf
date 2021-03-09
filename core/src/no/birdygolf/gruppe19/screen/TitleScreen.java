@@ -16,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import no.birdygolf.gruppe19.BirdyGolf;
-import no.birdygolf.gruppe19.components.PhysicsComponent;
 
 public class TitleScreen extends ScreenAdapter {
 

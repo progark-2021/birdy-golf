@@ -10,8 +10,9 @@ public class BallFactory {
 
     public void addGolfBall(){
         Entity golfball = new Entity();
-        //egt parametere som sendes inn slik at physicscomponent ikke er like hardkodet som nå
-        PhysicsComponent circularDynamic = new PhysicsComponent();
+        //skal egt ha flere parametere slik at physicscomponent ikke er like hardkodet som nå
+        PhysicsComponent circularDynamic = new PhysicsComponent(100,300);
+        //adding components to the entity
         golfball.add(circularDynamic);
 
     }
