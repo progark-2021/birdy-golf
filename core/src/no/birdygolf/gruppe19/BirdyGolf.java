@@ -4,7 +4,6 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import no.birdygolf.gruppe19.components.PhysicsComponent;
 import no.birdygolf.gruppe19.screen.TitleScreen;
 
 public class BirdyGolf extends Game {

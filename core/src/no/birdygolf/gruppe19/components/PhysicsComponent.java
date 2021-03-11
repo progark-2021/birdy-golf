@@ -66,6 +66,5 @@ public class PhysicsComponent implements Component {
 
     public void render(float delta) {
         initializeBox2D();
-
     }
 }
