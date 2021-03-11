@@ -1,5 +1,19 @@
-package no.birdygolf.gruppe19.components;
+package no.birdygolf.gruppe19.ball;
 
-public class SpriteComponent {
-    //todo: legge til bilde av en golfball
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+
+public class BallEntity {
+
+    private Sprite ball;
+
+    public BallEntity() {
+        ball = new Sprite(new Texture("golfball.png"));
+
+    }
+
+    public Sprite getSprite() {
+        return ball;
+    }
+
 }
