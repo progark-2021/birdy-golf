@@ -48,7 +48,7 @@ public class TitleScreen extends ScreenAdapter {
         this.game = game;
 
 
-        viewport = new FitViewport(800, 480, game.camera);
+        viewport = new FitViewport(480, 800, game.camera);
 
         titleParameter.size = 72;
         titleFont = font.generateFont(titleParameter);

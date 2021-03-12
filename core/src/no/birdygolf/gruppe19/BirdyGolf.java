@@ -14,7 +14,7 @@ public class BirdyGolf extends Game {
     public void create() {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, 480, 800);
 
         setScreen(new TitleScreen(this));
     }

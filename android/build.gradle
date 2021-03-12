@@ -15,6 +15,9 @@ android {
     }
     packagingOptions {
         exclude 'META-INF/robovm/ios/robovm.xml'
+        exclude "META-INF/INDEX.LIST"
+        exclude "META-INF/DEPENDENCIES"
+
     }
     defaultConfig {
         applicationId "no.birdygolf.gruppe19"
