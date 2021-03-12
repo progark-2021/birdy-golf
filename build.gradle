@@ -74,11 +74,12 @@ project(":core") {
 
 
     dependencies {
+        implementation 'com.google.cloud:google-cloud-firestore:2.2.4'
+
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.ashley:ashley:$ashleyVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-        
     }
 }
 
