@@ -2,7 +2,6 @@ package no.birdygolf.gruppe19.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -15,8 +14,8 @@ import no.birdygolf.gruppe19.BirdyGolf;
 
 import static no.birdygolf.gruppe19.screen.ScreenUtils.createInputListener;
 
-public class HighScoreScreen extends ScreenAdapter {
-    private static HighScoreScreen instance;
+public class SummaryScreen extends ScreenAdapter {
+    private static SummaryScreen instance;
 
     BirdyGolf game;
 
@@ -28,7 +27,7 @@ public class HighScoreScreen extends ScreenAdapter {
     Label title;
     Label.LabelStyle labelStyle;
 
-    TextButton titleScreen;
+    TextButton highScores;
     TextButton.TextButtonStyle textButtonStyle;
 
     FreeTypeFontGenerator.FreeTypeFontParameter titleParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -36,22 +35,27 @@ public class HighScoreScreen extends ScreenAdapter {
     BitmapFont titleFont;
     BitmapFont buttonFont;
 
-    private HighScoreScreen(BirdyGolf game) {
+    private SummaryScreen(BirdyGolf game) {
         this.game = game;
     }
 
-    public static HighScoreScreen getInstance(BirdyGolf game) {
+    public static SummaryScreen getInstance(BirdyGolf game) {
         if (instance == null) {
-            instance = new HighScoreScreen(game);
+            instance = new SummaryScreen(game);
         }
         return instance;
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.4f, 0.8f, 0.4f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();
+    }
+
+    @Override
+    public void dispose() {
+        buttonFont.dispose();
+        titleFont.dispose();
+        stage.dispose();
     }
 
     @Override
@@ -63,13 +67,6 @@ public class HighScoreScreen extends ScreenAdapter {
     @Override
     public void hide() {
         dispose();
-    }
-
-    @Override
-    public void dispose() {
-        stage.dispose();
-        titleFont.dispose();
-        buttonFont.dispose();
     }
 
     private void createUi() {
@@ -87,19 +84,18 @@ public class HighScoreScreen extends ScreenAdapter {
         textButtonStyle.font = buttonFont;
         textButtonStyle.up = game.skin.getDrawable("blue_button00");
         textButtonStyle.down = game.skin.getDrawable("blue_button01");
-        titleScreen = new TextButton("Main Menu", textButtonStyle);
-        titleScreen.pad(15);
-        titleScreen.addListener(createInputListener(game, TitleScreen.getInstance(game)));
-
+        highScores = new TextButton("High Scores", textButtonStyle);
+        highScores.pad(15);
+        highScores.addListener(createInputListener(game, HighScoreScreen.getInstance(game)));
 
         labelStyle = new Label.LabelStyle();
         labelStyle.font = titleFont;
-        title = new Label("High Scores", labelStyle);
+        title = new Label("Summary", labelStyle);
 
         layout = new Table();
         layout.add(title);
         layout.row();
-        layout.add(titleScreen).width(400).pad(10);
+        layout.add(highScores).width(400).pad(10);
         layout.pad(10f);
 
         stage.addActor(layout);
