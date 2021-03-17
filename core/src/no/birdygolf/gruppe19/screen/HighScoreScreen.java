@@ -2,21 +2,21 @@ package no.birdygolf.gruppe19.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import no.birdygolf.gruppe19.BirdyGolf;
 
 import static no.birdygolf.gruppe19.screen.ScreenUtils.createInputListener;
 
-public class TitleScreen extends ScreenAdapter {
-    private static TitleScreen instance;
+public class HighScoreScreen extends ScreenAdapter {
+    private static HighScoreScreen instance;
 
     BirdyGolf game;
 
@@ -25,40 +25,32 @@ public class TitleScreen extends ScreenAdapter {
     Stage stage;
     Table layout;
 
-    Label titleUpper;
-    Label titleLower;
+    Label title;
     Label.LabelStyle labelStyle;
 
-    TextButton playGame;
-    TextButton highScores;
-    TextButtonStyle textButtonStyle;
+    TextButton titleScreen;
+    TextButton.TextButtonStyle textButtonStyle;
 
-    FreeTypeFontParameter titleParameter = new FreeTypeFontParameter();
-    FreeTypeFontParameter buttonParameter = new FreeTypeFontParameter();
+    FreeTypeFontGenerator.FreeTypeFontParameter titleParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    FreeTypeFontGenerator.FreeTypeFontParameter buttonParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
     BitmapFont titleFont;
     BitmapFont buttonFont;
 
-
-    private TitleScreen(BirdyGolf game) {
+    private HighScoreScreen(BirdyGolf game) {
         this.game = game;
     }
 
-    public static TitleScreen getInstance(BirdyGolf game) {
+    public static HighScoreScreen getInstance(BirdyGolf game) {
         if (instance == null) {
-            instance = new TitleScreen(game);
+            instance = new HighScoreScreen(game);
         }
         return instance;
     }
 
     @Override
-    public void dispose() {
-        stage.dispose();
-        titleFont.dispose();
-        buttonFont.dispose();
-    }
-
-    @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0.4f, 0.8f, 0.4f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();
     }
 
@@ -68,10 +60,16 @@ public class TitleScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(stage);
     }
 
-
     @Override
     public void hide() {
         dispose();
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
+        titleFont.dispose();
+        buttonFont.dispose();
     }
 
     private void createUi() {
@@ -80,37 +78,28 @@ public class TitleScreen extends ScreenAdapter {
         titleParameter.size = 72;
         titleFont = game.font.generateFont(titleParameter);
 
-
         buttonParameter.size = 36;
         buttonFont = game.font.generateFont(buttonParameter);
 
         stage = new Stage(viewport);
 
-        textButtonStyle = new TextButtonStyle();
+        textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.font = buttonFont;
         textButtonStyle.up = game.skin.getDrawable("blue_button00");
         textButtonStyle.down = game.skin.getDrawable("blue_button01");
-        playGame = new TextButton("Play Game", textButtonStyle);
-        highScores = new TextButton("High Scores", textButtonStyle);
-        playGame.pad(15);
-        highScores.pad(15);
+        titleScreen = new TextButton("Main Menu", textButtonStyle);
+        titleScreen.pad(15);
+        titleScreen.addListener(createInputListener(game, TitleScreen.getInstance(game)));
 
-        playGame.addListener(createInputListener(game, GameScreen.getInstance(game)));
-        highScores.addListener(createInputListener(game, HighScoreScreen.getInstance(game)));
 
         labelStyle = new Label.LabelStyle();
         labelStyle.font = titleFont;
-        titleUpper = new Label("Birdy", labelStyle);
-        titleLower = new Label("Golf", labelStyle);
+        title = new Label("High Scores", labelStyle);
 
         layout = new Table();
-        layout.add(titleUpper);
+        layout.add(title);
         layout.row();
-        layout.add(titleLower);
-        layout.row();
-        layout.add(playGame).width(400).pad(10);
-        layout.row();
-        layout.add(highScores).width(400).pad(10);
+        layout.add(titleScreen).width(400).pad(10);
         layout.pad(10f);
 
         stage.addActor(layout);
