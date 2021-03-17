@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 import no.birdygolf.gruppe19.Assets;
 
+//Getting the ball texture
 public class TextureComponent implements Component {
 
     private Assets asset;

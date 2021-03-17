@@ -10,6 +10,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 
+
+//Our first component
 public class PhysicsComponent implements Component {
     Body body;
     BodyDef bodyDef;
@@ -24,7 +26,7 @@ public class PhysicsComponent implements Component {
         setPosition(xPosition, yPosition);
         this.body = world.createBody(this.bodyDef);
         this.fixtureDef = new FixtureDef();
-        setFixture();
+        //setFixture();
         this.fixture = getBody().createFixture(fixtureDef);
     }
     public Body getBody(){
@@ -49,9 +51,10 @@ public class PhysicsComponent implements Component {
     }
 
 
+    // Separated into own components
+    /*
     private void setFixture(){
-        /* we can change this to be less hardcoded by adding some of
-         these as parameters in the constructor*/
+        // we can change this to be less hardcoded by adding some of these as parameters in the constructor
         CircleShape circle = new CircleShape();
         circle.setRadius(6f);
         fixtureDef.shape = circle;
@@ -59,6 +62,7 @@ public class PhysicsComponent implements Component {
         fixtureDef.friction = 0.4f;
         fixtureDef.restitution = 0.6f;
     }
+    */
 
     private void initializeBox2D() {
         Box2D.init();
