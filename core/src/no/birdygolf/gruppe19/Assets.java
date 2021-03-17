@@ -11,6 +11,10 @@ public class Assets {
 
     public static Texture ball;
 
+    public Assets(){
+        load();
+    }
+
 
 
     public static void load() {
