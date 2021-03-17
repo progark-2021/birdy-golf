@@ -6,7 +6,7 @@ import no.birdygolf.gruppe19.components.PhysicsComponent;
 import no.birdygolf.gruppe19.components.TextureComponent;
 
 // Creates the ball entity and adds all the comnponents belonging to this entity
-public class BallFactory {
+public class WorldFactory {
 
 
     public void addGolfBall(){

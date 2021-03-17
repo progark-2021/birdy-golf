@@ -4,7 +4,7 @@ import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 
-public class BoundsComponent implements Component {
+public class BallComponent implements Component {
 
     public static final CircleShape CIRCLE_SHAPE = new CircleShape();
     public static final float RADIUS = 6f;
