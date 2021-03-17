@@ -48,14 +48,15 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         stage.draw();
+
     }
 
     @Override
     public void dispose() {
-        buttonFont.dispose();
-        titleFont.dispose();
-        stage.dispose();
+
+
     }
+
 
     @Override
     public void show() {

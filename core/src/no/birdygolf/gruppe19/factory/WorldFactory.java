@@ -19,6 +19,10 @@ public class WorldFactory {
         this.engine = engine;
     }
 
+    public void create() {
+        createGolfBall();
+    }
+
     private Entity createGolfBall(){
         Entity golfball = engine.createEntity();
 
