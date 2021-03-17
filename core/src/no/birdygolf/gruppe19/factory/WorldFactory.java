@@ -38,7 +38,7 @@ public class WorldFactory {
         golfball.add(movement);
         golfball.add(bounds);
         golfball.add(ball);
-        
+
         engine.addEntity(golfball);
 
         return golfball;

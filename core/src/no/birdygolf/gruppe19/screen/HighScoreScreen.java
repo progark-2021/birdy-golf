@@ -2,6 +2,7 @@ package no.birdygolf.gruppe19.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -9,12 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+
 import no.birdygolf.gruppe19.BirdyGolf;
+
 import static no.birdygolf.gruppe19.screen.ScreenUtils.createInputListener;
 
-
-public class GameScreen extends ScreenAdapter {
-    private static GameScreen instance;
+public class HighScoreScreen extends ScreenAdapter {
+    private static HighScoreScreen instance;
 
     BirdyGolf game;
 
@@ -26,7 +28,7 @@ public class GameScreen extends ScreenAdapter {
     Label title;
     Label.LabelStyle labelStyle;
 
-    TextButton levelSelect;
+    TextButton titleScreen;
     TextButton.TextButtonStyle textButtonStyle;
 
     FreeTypeFontGenerator.FreeTypeFontParameter titleParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -34,27 +36,22 @@ public class GameScreen extends ScreenAdapter {
     BitmapFont titleFont;
     BitmapFont buttonFont;
 
-    private GameScreen(BirdyGolf game) {
+    private HighScoreScreen(BirdyGolf game) {
         this.game = game;
     }
 
-    public static GameScreen getInstance(BirdyGolf game) {
+    public static HighScoreScreen getInstance(BirdyGolf game) {
         if (instance == null) {
-            instance = new GameScreen(game);
+            instance = new HighScoreScreen(game);
         }
         return instance;
     }
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0.4f, 0.8f, 0.4f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.draw();
-    }
-
-    @Override
-    public void dispose() {
-        buttonFont.dispose();
-        titleFont.dispose();
-        stage.dispose();
     }
 
     @Override
@@ -66,6 +63,13 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void hide() {
         dispose();
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
+        titleFont.dispose();
+        buttonFont.dispose();
     }
 
     private void createUi() {
@@ -83,18 +87,19 @@ public class GameScreen extends ScreenAdapter {
         textButtonStyle.font = buttonFont;
         textButtonStyle.up = game.skin.getDrawable("blue_button00");
         textButtonStyle.down = game.skin.getDrawable("blue_button01");
-        levelSelect = new TextButton("next screen", textButtonStyle);
-        levelSelect.pad(15);
-        levelSelect.addListener(createInputListener(game, SummaryScreen.getInstance(game)));
+        titleScreen = new TextButton("Main Menu", textButtonStyle);
+        titleScreen.pad(15);
+        titleScreen.addListener(createInputListener(game, TitleScreen.getInstance(game)));
+
 
         labelStyle = new Label.LabelStyle();
         labelStyle.font = titleFont;
-        title = new Label("Game", labelStyle);
+        title = new Label("High Scores", labelStyle);
 
         layout = new Table();
         layout.add(title);
         layout.row();
-        layout.add(levelSelect).width(400).pad(10);
+        layout.add(titleScreen).width(400).pad(10);
         layout.pad(10f);
 
         stage.addActor(layout);

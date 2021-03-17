@@ -9,12 +9,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+
 import no.birdygolf.gruppe19.BirdyGolf;
+
 import static no.birdygolf.gruppe19.screen.ScreenUtils.createInputListener;
 
-
-public class GameScreen extends ScreenAdapter {
-    private static GameScreen instance;
+public class SummaryScreen extends ScreenAdapter {
+    private static SummaryScreen instance;
 
     BirdyGolf game;
 
@@ -26,7 +27,7 @@ public class GameScreen extends ScreenAdapter {
     Label title;
     Label.LabelStyle labelStyle;
 
-    TextButton levelSelect;
+    TextButton highScores;
     TextButton.TextButtonStyle textButtonStyle;
 
     FreeTypeFontGenerator.FreeTypeFontParameter titleParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -34,13 +35,13 @@ public class GameScreen extends ScreenAdapter {
     BitmapFont titleFont;
     BitmapFont buttonFont;
 
-    private GameScreen(BirdyGolf game) {
+    private SummaryScreen(BirdyGolf game) {
         this.game = game;
     }
 
-    public static GameScreen getInstance(BirdyGolf game) {
+    public static SummaryScreen getInstance(BirdyGolf game) {
         if (instance == null) {
-            instance = new GameScreen(game);
+            instance = new SummaryScreen(game);
         }
         return instance;
     }
@@ -83,18 +84,18 @@ public class GameScreen extends ScreenAdapter {
         textButtonStyle.font = buttonFont;
         textButtonStyle.up = game.skin.getDrawable("blue_button00");
         textButtonStyle.down = game.skin.getDrawable("blue_button01");
-        levelSelect = new TextButton("next screen", textButtonStyle);
-        levelSelect.pad(15);
-        levelSelect.addListener(createInputListener(game, SummaryScreen.getInstance(game)));
+        highScores = new TextButton("High Scores", textButtonStyle);
+        highScores.pad(15);
+        highScores.addListener(createInputListener(game, HighScoreScreen.getInstance(game)));
 
         labelStyle = new Label.LabelStyle();
         labelStyle.font = titleFont;
-        title = new Label("Game", labelStyle);
+        title = new Label("Summary", labelStyle);
 
         layout = new Table();
         layout.add(title);
         layout.row();
-        layout.add(levelSelect).width(400).pad(10);
+        layout.add(highScores).width(400).pad(10);
         layout.pad(10f);
 
         stage.addActor(layout);
