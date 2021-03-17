@@ -9,12 +9,12 @@ public class BallFactory {
 
 
     public void addGolfBall(){
-        Entity golfball = new Entity();
+        //Entity golfball = new Entity();
         //skal egt ha flere parametere slik at physicscomponent ikke er like hardkodet som nå
-        PhysicsComponent circularDynamic = new PhysicsComponent(100,300);
-        SpriteComponent ball = new SpriteComponent();
+        //PhysicsComponent circularDynamic = new PhysicsComponent(100,300);
+        //SpriteComponent ball = new SpriteComponent();
         //adding components to the entity
-        golfball.add(circularDynamic);
-        golfball.add(ball);
+        //golfball.add(circularDynamic);
+        //golfball.add(ball);
     }
 }
