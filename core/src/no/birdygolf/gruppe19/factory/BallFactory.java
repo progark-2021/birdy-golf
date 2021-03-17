@@ -3,7 +3,6 @@ package no.birdygolf.gruppe19.factory;
 import com.badlogic.ashley.core.Entity;
 
 import no.birdygolf.gruppe19.components.PhysicsComponent;
-import no.birdygolf.gruppe19.components.SpriteComponent;
 
 // Creates the ball entity and adds all the comnponents belonging to this entity
 public class BallFactory {
