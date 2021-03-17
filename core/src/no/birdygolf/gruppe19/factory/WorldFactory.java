@@ -23,7 +23,7 @@ public class WorldFactory {
         createGolfBall();
     }
 
-    private Entity createGolfBall(){
+    private void createGolfBall(){
         Entity golfball = engine.createEntity();
 
         //skal egt ha flere parametere slik at physicscomponent ikke er like hardkodet som nå
@@ -45,6 +45,5 @@ public class WorldFactory {
 
         engine.addEntity(golfball);
 
-        return golfball;
     }
 }

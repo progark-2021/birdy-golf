@@ -38,18 +38,8 @@ public class GameScreen extends ScreenAdapter {
     BitmapFont titleFont;
     BitmapFont buttonFont;
 
-
-    WorldFactory world;
-    PooledEngine engine;
-
-    private GameScreen(BirdyGolf game) {
+    public GameScreen(BirdyGolf game) {
         this.game = game;
-        engine = new PooledEngine();
-        world = new WorldFactory(engine);
-
-        engine.addSystem(new MovementSystem());
-
-        world.create();
     }
 
     public static GameScreen getInstance(BirdyGolf game) {

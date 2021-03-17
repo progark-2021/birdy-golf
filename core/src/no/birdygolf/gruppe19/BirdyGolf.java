@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import no.birdygolf.gruppe19.screen.GameScreen;
+import no.birdygolf.gruppe19.screen.PlayScreen;
 import no.birdygolf.gruppe19.screen.TitleScreen;
 
 public class BirdyGolf extends Game {
@@ -32,7 +33,8 @@ public class BirdyGolf extends Game {
         skin = new Skin();
         skin.addRegions(uiAtlas);
 
-        setScreen(TitleScreen.getInstance(this));
+        //setScreen(TitleScreen.getInstance(this));
+        setScreen(new PlayScreen(this));
     }
 
     @Override
