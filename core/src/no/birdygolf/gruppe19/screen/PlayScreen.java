@@ -35,4 +35,9 @@ public class PlayScreen extends ScreenAdapter {
         stage = new Stage(viewport);
 
     }
+    @Override
+    public void render (float delta) {
+
+        createUi();
+    }
 }
