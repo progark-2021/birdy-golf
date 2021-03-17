@@ -27,11 +27,6 @@ public class BirdyGolf extends Game {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 480, 800);
 
-<<<<<<< HEAD
-        //setScreen(new TitleScreen(this));
-        setScreen(new GameScreen(this));
-
-=======
         font = new FreeTypeFontGenerator(Gdx.files.internal("fonts/kenvector_future.ttf"));
         uiAtlas = new TextureAtlas(Gdx.files.internal("ui/uiPack.txt"));
         skin = new Skin();
@@ -44,7 +39,6 @@ public class BirdyGolf extends Game {
     public void render() {
         clearBackground();
         super.render();
->>>>>>> d472c7a2e9a9eef8d45e60973982699a7bef8b2d
     }
 
     @Override
