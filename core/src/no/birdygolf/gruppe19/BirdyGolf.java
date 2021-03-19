@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+import no.birdygolf.gruppe19.screen.GameScreen;
+import no.birdygolf.gruppe19.screen.PlayScreen;
 import no.birdygolf.gruppe19.screen.TitleScreen;
 
 public class BirdyGolf extends Game {
@@ -25,6 +27,7 @@ public class BirdyGolf extends Game {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 480, 800);
+        Assets.load();
 
         font = new FreeTypeFontGenerator(Gdx.files.internal("fonts/kenvector_future.ttf"));
         uiAtlas = new TextureAtlas(Gdx.files.internal("ui/uiPack.txt"));
