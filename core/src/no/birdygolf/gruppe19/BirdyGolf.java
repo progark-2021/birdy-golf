@@ -27,6 +27,7 @@ public class BirdyGolf extends Game {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 480, 800);
+        Assets.load();
 
         font = new FreeTypeFontGenerator(Gdx.files.internal("fonts/kenvector_future.ttf"));
         uiAtlas = new TextureAtlas(Gdx.files.internal("ui/uiPack.txt"));

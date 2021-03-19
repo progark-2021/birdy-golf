@@ -1,7 +1,7 @@
 
 package no.birdygolf.gruppe19;
 
-        import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Gdx;
         import com.badlogic.gdx.graphics.Texture;
         import com.badlogic.gdx.graphics.g2d.Sprite;
 
@@ -11,13 +11,11 @@ public class Assets {
 
     public static Texture ball;
 
-    public Assets(){
-        load();
-    }
-
-
+    public static Texture loadTexture (String file) {
+		return new Texture(file);
+	}
 
     public static void load() {
-        ball = new Texture("golfball.png");
+        ball = loadTexture("sprites/golfball.png");
     }
 }
