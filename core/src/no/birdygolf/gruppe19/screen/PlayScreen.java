@@ -8,13 +8,11 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import no.birdygolf.gruppe19.BirdyGolf;
 import no.birdygolf.gruppe19.factory.WorldFactory;
 import no.birdygolf.gruppe19.systems.MovementSystem;
+import no.birdygolf.gruppe19.systems.RenderingSystem;
 
 public class PlayScreen extends ScreenAdapter {
 
     BirdyGolf game;
-
-    FitViewport viewport;
-    Stage stage;
 
     WorldFactory world;
     PooledEngine engine;
@@ -24,20 +22,15 @@ public class PlayScreen extends ScreenAdapter {
         engine = new PooledEngine();
         world = new WorldFactory(engine);
 
-        engine.addSystem(new MovementSystem());
-
+        //engine.addSystem(new MovementSystem());
+        engine.addSystem(new RenderingSystem(game.batch));
+        engine.getSystem(RenderingSystem.class).setProcessing(true);
         world.create();
     }
 
-    private void createUi() {
-        viewport = new FitViewport(480, 800, game.camera);
-
-        stage = new Stage(viewport);
-
-    }
     @Override
     public void render (float delta) {
-
-        createUi();
+        engine.update(delta);
+        game.camera.update();
     }
 }

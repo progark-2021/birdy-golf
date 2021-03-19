@@ -27,21 +27,20 @@ public class WorldFactory {
         Entity golfball = engine.createEntity();
 
         //skal egt ha flere parametere slik at physicscomponent ikke er like hardkodet som nå
-        PhysicsComponent circularDynamic = engine.createComponent(PhysicsComponent.class);
         TextureComponent texture = engine.createComponent(TextureComponent.class);
         TransformComponent position = engine.createComponent(TransformComponent.class);
         MovementComponent movement = engine.createComponent(MovementComponent.class);
-        BoundsComponent bounds = engine.createComponent(BoundsComponent.class);
-        BallComponent ball = engine.createComponent(BallComponent.class);
+        //BoundsComponent bounds = engine.createComponent(BoundsComponent.class);
+        // BallComponent ball = engine.createComponent(BallComponent.class);
 
         position.pos.set(100, 300, 0.0f);
 
         //adding components to the entity
-        golfball.add(circularDynamic);
         golfball.add(texture);
+        golfball.add(position);
         golfball.add(movement);
-        golfball.add(bounds);
-        golfball.add(ball);
+        //golfball.add(bounds);
+        // golfball.add(ball);
 
         engine.addEntity(golfball);
 
