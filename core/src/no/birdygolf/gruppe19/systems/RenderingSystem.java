@@ -43,6 +43,8 @@ public class RenderingSystem extends IteratingSystem {
         //can only get entities that satisfies the family restriction
         TextureComponent texture = textureMapper.get(entity);
         TransformComponent transform = transformMapper.get(entity);
-        batch.draw(texture.getComponent(), transform.pos.x, transform.pos.y);
+        texture.getComponent().setPosition(transform.pos.x, transform.pos.y);
+        texture.getComponent().draw(batch);
+        //batch.draw(texture.getComponent(), transform.pos.x, transform.pos.y);
     }
 }

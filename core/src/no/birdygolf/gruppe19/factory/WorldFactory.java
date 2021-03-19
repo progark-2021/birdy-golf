@@ -33,7 +33,7 @@ public class WorldFactory {
         //BoundsComponent bounds = engine.createComponent(BoundsComponent.class);
         // BallComponent ball = engine.createComponent(BallComponent.class);
 
-        position.pos.set(100, 300, 0.0f);
+        position.pos.set(275, 0, 0.0f);
 
         //adding components to the entity
         golfball.add(texture);
