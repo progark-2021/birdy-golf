@@ -15,7 +15,7 @@ public class InputProcessor extends InputAdapter {
      */
     public InputProcessor(MovementSystem movementSystem) {
         this.movementSystem = movementSystem;
-        movementSystem = movementSystem.getEntities().get(0);
+        movementEntity = movementSystem.getEntities().get(0);
     }
 
     /***
