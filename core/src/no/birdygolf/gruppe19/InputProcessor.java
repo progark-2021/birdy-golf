@@ -23,19 +23,19 @@ public class InputProcessor extends InputAdapter {
      */
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        movementSystem.setPressed(movementSystem, screenX, screenY);
+        movementSystem.setPressed(movementEntity, screenX, screenY);
         return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        movementSystem.unPressed(movementSystem);
+        movementSystem.unPressed(movementEntity);
         return false;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        movementSystem.dragged(movementSystem, screenX, screenY);
+        movementSystem.dragged(movementEntity, screenX, screenY);
         return false;
     }
 }
