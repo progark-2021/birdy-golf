@@ -46,16 +46,10 @@ public class RenderingSystem extends IteratingSystem {
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         //can only get entities that satisfies the family restriction
-        //TextureComponent texture = textureMapper.get(entity);
-
         SpriteComponent spriteComponent = spriteMapper.get(entity);
         TransformComponent transformComponent = transformMapper.get(entity);
-        //texture.getComponent().setPosition(transform.pos.x, transform.pos.y);
-        //texture.getComponent().draw(batch);
-
-        spriteComponent.sprite.setPosition(transformComponent.pos.x, transformComponent.pos.y);
+        spriteComponent.sprite.setPosition(transformComponent.currentPos.x, transformComponent.currentPos.y);
         spriteComponent.sprite.setRotation(transformComponent.rotation);
         spriteComponent.sprite.draw(batch);
-        //batch.draw(texture.getComponent(), transform.pos.x, transform.pos.y);
     }
 }

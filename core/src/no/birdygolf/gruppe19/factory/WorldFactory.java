@@ -51,8 +51,7 @@ public class WorldFactory {
 
         spriteComponent.sprite = Assets.ball;
         spriteComponent.sprite.setScale(0.3f);
-
-        positionComponent.pos.set(275, 0, 0.0f);
+        positionComponent.currentPos.set(275f, 0.0f);
 
         //OBS ikke riktige bounds på grunn av scale
         //boundsComponent.bounds.width = spriteComponent.sprite.getWidth();
