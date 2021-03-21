@@ -17,7 +17,6 @@ public class MovementSystem extends IteratingSystem {
 
     private ComponentMapper<TransformComponent> tm;
     private ComponentMapper<MovementComponent> mm;
-    private Object ControllerLogic;
 
     public MovementSystem() {
         super(Family.all(TransformComponent.class, MovementComponent.class).get());
@@ -35,7 +34,7 @@ public class MovementSystem extends IteratingSystem {
         mov.velocity.add(tmp);
 
         tmp.set(mov.velocity).scl(deltaTime);
-        pos.pos.add(tmp.x, tmp.y, 0.0f);
+        pos.currentPos.add(tmp.x, tmp.y);
     }
 
     /***
@@ -44,7 +43,7 @@ public class MovementSystem extends IteratingSystem {
      */
     public void setPressed(Entity entity, int screenX, int screenY) {
         tm.get(entity).pressedPosition.set(new Vector2(screenX, Gdx.graphics.getHeight() - screenY));
-        pm.get(entity).wasPressed = true;
+        tm.get(entity).wasPressed = true;
     }
 
     /***
@@ -54,12 +53,12 @@ public class MovementSystem extends IteratingSystem {
      * The distance and angle is so calculated.
      */
     public void dragged(Entity entity, int screenX, int screenY) {
-        if(pm.get(entity).wasPressed) {
-            pm.get(entity).currentPosition.set(screenX, Gdx.graphics.getHeight() - screenY);
-            pm.get(entity).velocityVector.set(pm.get(entity).currentPosition).sub(pm.get(entity).pressedPosition);
-            pm.get(entity).distance = pm.get(entity).velocityVector.len()/22;
-            pm.get(entity).angle = MathUtils.atan2(pm.get(entity).velocityVector.y,pm.get(entity).velocityVector.x);
-            pm.get(entity).angle %= 2 * MathUtils.PI;
+        if(tm.get(entity).wasPressed) {
+            tm.get(entity).currentPos.set(screenX, Gdx.graphics.getHeight() - screenY);
+            mm.get(entity).velocity.set(tm.get(entity).currentPos).sub(tm.get(entity).currentPos);
+            mm.get(entity).distance = mm.get(entity).velocity.len()/22;
+            mm.get(entity).angle = MathUtils.atan2(mm.get(entity).velocity.y,mm.get(entity).velocity.x);
+            mm.get(entity).angle %= 2 * MathUtils.PI;
         }
     }
 
@@ -67,11 +66,9 @@ public class MovementSystem extends IteratingSystem {
      * When the touch is let go of this method will calculate the velocities in the different directions
      */
     public void unPressed(Entity entity) {
-        float velX = (2.25f * -MathUtils.cos(pm.get(entity).angle) * pm.get(entity).distance);
-        float velY = (2.25f * -MathUtils.sin(pm.get(entity).angle) * pm.get(entity).distance);
+        float velX = (2.25f * -MathUtils.cos(mm.get(entity).angle) * mm.get(entity).distance);
+        float velY = (2.25f * -MathUtils.sin(mm.get(entity).angle) * mm.get(entity).distance);
         Vector2 velvec = new Vector2(velX, velY);
-        pm.get(entity).wasPressed = false;
-        pm.get(entity).currentPlayer.showBullet();
-        pm.get(entity).bullet.b2Body.setLinearVelocity(velvec);
+        tm.get(entity).wasPressed = false;
     }
 }
