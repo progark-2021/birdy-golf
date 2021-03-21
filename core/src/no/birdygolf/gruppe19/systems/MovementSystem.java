@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 
@@ -41,9 +42,9 @@ public class MovementSystem extends IteratingSystem {
     * Draws a circle around the current player and checks iff the touchDown was within the range of that circle
     * If so it sets the flag to true
      */
-    public void setPressed(MovementSystem movementSystem, int screenX, int screenY) {
+    public void setPressed(Entity entity, int screenX, int screenY) {
         tm.get(entity).pressedPosition.set(new Vector2(screenX, Gdx.graphics.getHeight() - screenY));
-        pm.get(physicsEntity).wasPressed = true;
+        pm.get(entity).wasPressed = true;
     }
 
     /***
@@ -52,29 +53,25 @@ public class MovementSystem extends IteratingSystem {
      * It then calculates the vector between the pressed position (where the player is) and where the last dragged position is.
      * The distance and angle is so calculated.
      */
-    public void dragged(MovementSystem movementSystem, int screenX, int screenY) {
-        if(pm.get(physicsEntity).wasPressed) {
-            pm.get(physicsEntity).currentPosition.set(screenX, Gdx.graphics.getHeight() - screenY);
-            pm.get(physicsEntity).velocityVector.set(pm.get(physicsEntity).currentPosition).sub(pm.get(physicsEntity).pressedPosition);
-            pm.get(physicsEntity).distance = pm.get(physicsEntity).velocityVector.len()/22;
-            pm.get(physicsEntity).angle = MathUtils.atan2(pm.get(physicsEntity).velocityVector.y,pm.get(physicsEntity).velocityVector.x);
-            pm.get(physicsEntity).angle %= 2 * MathUtils.PI;
+    public void dragged(Entity entity, int screenX, int screenY) {
+        if(pm.get(entity).wasPressed) {
+            pm.get(entity).currentPosition.set(screenX, Gdx.graphics.getHeight() - screenY);
+            pm.get(entity).velocityVector.set(pm.get(entity).currentPosition).sub(pm.get(entity).pressedPosition);
+            pm.get(entity).distance = pm.get(entity).velocityVector.len()/22;
+            pm.get(entity).angle = MathUtils.atan2(pm.get(entity).velocityVector.y,pm.get(entity).velocityVector.x);
+            pm.get(entity).angle %= 2 * MathUtils.PI;
         }
     }
 
     /***
-     * When the touch is let go of this method will calculate the velocities in the different directions and will
-     * set the players bullet to this so it shoots.
+     * When the touch is let go of this method will calculate the velocities in the different directions
      */
-    public void unPressed(MovementSystem movementSystem) {
-        if(ControllerLogic.charging) {
-            float velX = (2.25f * -MathUtils.cos(pm.get(physicsEntity).angle) * pm.get(physicsEntity).distance);
-            float velY = (2.25f * -MathUtils.sin(pm.get(physicsEntity).angle) * pm.get(physicsEntity).distance);
-            Vector2 velvec = new Vector2(velX, velY);
-            ControllerLogic.charging = false;
-            pm.get(physicsEntity).wasPressed = false;
-            pm.get(physicsEntity).currentPlayer.showBullet();
-            pm.get(physicsEntity).bullet.b2Body.setLinearVelocity(velvec);
-        }
+    public void unPressed(Entity entity) {
+        float velX = (2.25f * -MathUtils.cos(pm.get(entity).angle) * pm.get(entity).distance);
+        float velY = (2.25f * -MathUtils.sin(pm.get(entity).angle) * pm.get(entity).distance);
+        Vector2 velvec = new Vector2(velX, velY);
+        pm.get(entity).wasPressed = false;
+        pm.get(entity).currentPlayer.showBullet();
+        pm.get(entity).bullet.b2Body.setLinearVelocity(velvec);
     }
 }
