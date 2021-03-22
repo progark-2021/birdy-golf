@@ -8,16 +8,19 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.List;
 
+import no.birdygolf.gruppe19.components.SpriteComponent;
 import no.birdygolf.gruppe19.components.TextureComponent;
 import no.birdygolf.gruppe19.components.TransformComponent;
 
 public class RenderingSystem extends IteratingSystem {
     // Entity level
-    private static final Family family = Family.all(TextureComponent.class, TransformComponent.class).get();
+    //private static final Family family = Family.all(TextureComponent.class, TransformComponent.class).get();
+    private static final Family family = Family.all(SpriteComponent.class, TransformComponent.class).get();
     private SpriteBatch batch;
 
     // Component level
-    private ComponentMapper<TextureComponent> textureMapper;
+    //private ComponentMapper<TextureComponent> textureMapper;
+    private ComponentMapper<SpriteComponent> spriteMapper;
     private ComponentMapper<TransformComponent> transformMapper;
     private List<Entity> drawQueue;
 
@@ -26,7 +29,8 @@ public class RenderingSystem extends IteratingSystem {
 
         this.batch = batch;
 
-        textureMapper = ComponentMapper.getFor(TextureComponent.class);
+        //textureMapper = ComponentMapper.getFor(TextureComponent.class);
+        spriteMapper = ComponentMapper.getFor(SpriteComponent.class);
         transformMapper = ComponentMapper.getFor(TransformComponent.class);
     }
 
@@ -41,10 +45,15 @@ public class RenderingSystem extends IteratingSystem {
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         //can only get entities that satisfies the family restriction
-        TextureComponent texture = textureMapper.get(entity);
+        //TextureComponent texture = textureMapper.get(entity);
+
+        SpriteComponent spriteComponent = spriteMapper.get(entity);
         TransformComponent transform = transformMapper.get(entity);
-        texture.getComponent().setPosition(transform.pos.x, transform.pos.y);
-        texture.getComponent().draw(batch);
+        //texture.getComponent().setPosition(transform.pos.x, transform.pos.y);
+        //texture.getComponent().draw(batch);
+
+        spriteComponent.sprite.setPosition(transform.pos.x, transform.pos.y);
+        spriteComponent.sprite.draw(batch);
         //batch.draw(texture.getComponent(), transform.pos.x, transform.pos.y);
     }
 }
