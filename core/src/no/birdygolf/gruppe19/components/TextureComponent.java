@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import no.birdygolf.gruppe19.Assets;
 
-//Getting the ball texture
+// Tenker å bruke SpriteComponent i stedet
 public class TextureComponent implements Component {
 
     public Texture texture = null;

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.List;
 
+import no.birdygolf.gruppe19.components.BoundsComponent;
 import no.birdygolf.gruppe19.components.SpriteComponent;
 import no.birdygolf.gruppe19.components.TextureComponent;
 import no.birdygolf.gruppe19.components.TransformComponent;
@@ -48,11 +49,12 @@ public class RenderingSystem extends IteratingSystem {
         //TextureComponent texture = textureMapper.get(entity);
 
         SpriteComponent spriteComponent = spriteMapper.get(entity);
-        TransformComponent transform = transformMapper.get(entity);
+        TransformComponent transformComponent = transformMapper.get(entity);
         //texture.getComponent().setPosition(transform.pos.x, transform.pos.y);
         //texture.getComponent().draw(batch);
 
-        spriteComponent.sprite.setPosition(transform.pos.x, transform.pos.y);
+        spriteComponent.sprite.setPosition(transformComponent.pos.x, transformComponent.pos.y);
+        spriteComponent.sprite.setRotation(transformComponent.rotation);
         spriteComponent.sprite.draw(batch);
         //batch.draw(texture.getComponent(), transform.pos.x, transform.pos.y);
     }
