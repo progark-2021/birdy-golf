@@ -1,5 +1,5 @@
 buildscript {
-    
+
 
     repositories {
         mavenLocal()
@@ -11,7 +11,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.2'
-        
+        classpath 'com.google.gms:google-services:4.3.5'
 
     }
 }
@@ -41,11 +41,14 @@ allprojects {
 
 project(":android") {
     apply plugin: "com.android.application"
+    apply plugin: 'com.google.gms.google-services'
 
     configurations { natives }
 
     dependencies {
         implementation project(":core")
+        implementation platform('com.google.firebase:firebase-bom:26.7.0')
+        implementation 'com.google.firebase:firebase-firestore'
         api "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
@@ -65,7 +68,7 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-arm64-v8a"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86_64"
-        
+
     }
 }
 
@@ -74,8 +77,6 @@ project(":core") {
 
 
     dependencies {
-        implementation 'com.google.cloud:google-cloud-firestore:2.2.4'
-
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.ashley:ashley:$ashleyVersion"
@@ -93,6 +94,6 @@ project(":desktop") {
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
-        
+
     }
 }
