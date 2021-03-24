@@ -4,17 +4,21 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import no.birdygolf.gruppe19.api.FirebaseApi;
 import no.birdygolf.gruppe19.api.FirebaseStatus;
 import no.birdygolf.gruppe19.api.ScoreDto;
-import no.birdygolf.gruppe19.screen.HighScoreScreen;
+import no.birdygolf.gruppe19.api.ScoreObserver;
 
 public class FirebaseApiImplementation implements FirebaseApi {
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    private final Set<ScoreObserver> observers = new HashSet<>();
 
     @Override
     public void postScore(ScoreDto score) {
@@ -25,9 +29,19 @@ public class FirebaseApiImplementation implements FirebaseApi {
     }
 
     @Override
-    public void getScores(HighScoreScreen highScoreScreen) {
+    public void listen(ScoreObserver observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void mute(ScoreObserver observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void getScores() {
         List<ScoreDto> scores = new ArrayList<>();
-        highScoreScreen.createHighScoreList(scores, FirebaseStatus.LOADING);
+        observers.forEach(observer -> observer.receiveUpdate(scores, FirebaseStatus.LOADING));
         db.collection("scores").get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -38,11 +52,13 @@ public class FirebaseApiImplementation implements FirebaseApi {
                             );
                         }).collect(Collectors.toList()));
                         scores.sort((s1, s2) -> (int) (s1.getScore() - s2.getScore()));
-                        highScoreScreen.createHighScoreList(scores, FirebaseStatus.SUCCESS);
+                        observers.forEach(observer -> observer.receiveUpdate(scores, FirebaseStatus.SUCCESS));
                     } else {
                         task.getException().printStackTrace();
-                        highScoreScreen.createHighScoreList(scores, FirebaseStatus.ERROR);
+                        observers.forEach(observer -> observer.receiveUpdate(scores, FirebaseStatus.ERROR));
                     }
                 });
     }
+
+
 }

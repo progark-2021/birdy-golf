@@ -17,10 +17,11 @@ import java.util.List;
 import no.birdygolf.gruppe19.BirdyGolf;
 import no.birdygolf.gruppe19.api.FirebaseStatus;
 import no.birdygolf.gruppe19.api.ScoreDto;
+import no.birdygolf.gruppe19.api.ScoreObserver;
 
 import static no.birdygolf.gruppe19.screen.ScreenUtils.createInputListener;
 
-public class HighScoreScreen extends ScreenAdapter {
+public class HighScoreScreen extends ScreenAdapter implements ScoreObserver {
     private static HighScoreScreen instance;
 
     BirdyGolf game;
@@ -66,10 +67,13 @@ public class HighScoreScreen extends ScreenAdapter {
 
     @Override
     public void show() {
+        // Listen to the Firebase API
+        game.firebaseApi.listen(this);
+
         // Initialize high score list
         listParameter.size = 30;
         listFont = game.font.generateFont(listParameter);
-        game.firebaseApi.getScores(this);
+        game.firebaseApi.getScores();
 
         // Build UI
         createUi();
@@ -78,6 +82,7 @@ public class HighScoreScreen extends ScreenAdapter {
 
     @Override
     public void hide() {
+        game.firebaseApi.mute(this);
         dispose();
     }
 
@@ -168,4 +173,8 @@ public class HighScoreScreen extends ScreenAdapter {
 
     }
 
+    @Override
+    public void receiveUpdate(List<ScoreDto> highScores, FirebaseStatus status) {
+        createHighScoreList(highScores, status);
+    }
 }
