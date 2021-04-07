@@ -30,6 +30,6 @@ public class BoundsSystem extends IteratingSystem {
         TransformComponent transformComponent = transformMapper.get(entity);
 
         //updating the position of the ball
-        boundsComponent.bounds.setPosition(transformComponent.pos.x, transformComponent.pos.y);
+        boundsComponent.bounds.setPosition(transformComponent.currentPos.x, transformComponent.currentPos.y);
     }
 }
