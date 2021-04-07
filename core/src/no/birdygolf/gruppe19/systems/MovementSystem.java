@@ -14,6 +14,8 @@ import no.birdygolf.gruppe19.components.TransformComponent;
 
 public class MovementSystem extends IteratingSystem {
     private Vector2 tmp = new Vector2();
+    private int currentScreenX;
+    private int currentScreenY;
 
     private ComponentMapper<TransformComponent> tm;
     private ComponentMapper<MovementComponent> mm;
@@ -44,6 +46,7 @@ public class MovementSystem extends IteratingSystem {
     public void setPressed(Entity entity, int screenX, int screenY) {
         tm.get(entity).pressedPosition.set(new Vector2(screenX, Gdx.graphics.getHeight() - screenY));
         tm.get(entity).wasPressed = true;
+        System.out.println("set pressed");
     }
 
     /***
@@ -54,11 +57,21 @@ public class MovementSystem extends IteratingSystem {
      */
     public void dragged(Entity entity, int screenX, int screenY) {
         if(tm.get(entity).wasPressed) {
-            tm.get(entity).currentPos.set(screenX, Gdx.graphics.getHeight() - screenY);
+            System.out.println("Dragged function");
+            this.currentScreenX = screenX;
+            this.currentScreenY = screenY;
+            System.out.println("currentX:" + currentScreenX);
+            System.out.println("currentY:" + currentScreenY);
+
+            /*tm.get(entity).currentPos.set(screenX, Gdx.graphics.getHeight() - screenY);
             mm.get(entity).velocity.set(tm.get(entity).currentPos).sub(tm.get(entity).currentPos);
             mm.get(entity).distance = mm.get(entity).velocity.len()/22;
+            System.out.println("Distance:" + mm.get(entity).distance);
             mm.get(entity).angle = MathUtils.atan2(mm.get(entity).velocity.y,mm.get(entity).velocity.x);
+            System.out.println("angle1:" +mm.get(entity).angle);
             mm.get(entity).angle %= 2 * MathUtils.PI;
+            System.out.println("angle2:" +mm.get(entity).angle);
+            System.out.println("pos:" +tm.get(entity).currentPos);*/
         }
     }
 
@@ -66,9 +79,19 @@ public class MovementSystem extends IteratingSystem {
      * When the touch is let go of this method will calculate the velocities in the different directions
      */
     public void unPressed(Entity entity) {
-        float velX = (2.25f * -MathUtils.cos(mm.get(entity).angle) * mm.get(entity).distance);
-        float velY = (2.25f * -MathUtils.sin(mm.get(entity).angle) * mm.get(entity).distance);
-        Vector2 velvec = new Vector2(velX, velY);
+        /*float velX = (2.25f * -MathUtils.cos(mm.get(entity).angle) * mm.get(entity).distance);
+        float velY = (2.25f * -MathUtils.sin(mm.get(entity).angle) * mm.get(entity).distance);*/
+        System.out.println("position:" + tm.get(entity).currentPos.y);
+        float diffX = currentScreenX - tm.get(entity).currentPos.x ;
+        System.out.println("diffX:" + diffX);
+        float diffY = tm.get(entity).currentPos.y - currentScreenY;
+        System.out.println("diffY:" + diffY);
+        tm.get(entity).currentPos.set(tm.get(entity).currentPos.x + diffX*0.1f, tm.get(entity).currentPos.y - diffY*0.1f);
+        float velocityX = mm.get(entity).velocity.x - (tm.get(entity).currentPos.x-currentScreenX)*0.2f ;
+        float velocityY = mm.get(entity).velocity.y - (tm.get(entity).currentPos.y-currentScreenY)*0.2f;
+        Vector2 velvec = new Vector2(velocityX, velocityY);
         tm.get(entity).wasPressed = false;
+        mm.get(entity).velocity.set(velvec).sub(velvec);
+        System.out.println("unpressed");
     }
 }
