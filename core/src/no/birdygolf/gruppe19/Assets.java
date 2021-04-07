@@ -9,13 +9,21 @@ import com.badlogic.gdx.Gdx;
 // contains an assetManager that control which assets that are used
 public class Assets {
 
-    public static Texture ball;
+    public static Sprite ball, obstacle;
 
+    /*
     public static Texture loadTexture (String file) {
-		return new Texture(file);
+        return new Texture(file);
 	}
+	*/
 
+
+    public static Sprite loadSprite (Texture texture) {
+        return new Sprite(texture);
+    }
     public static void load() {
-        ball = loadTexture("sprites/golfball.png");
+        //ball = loadTexture("sprites/golfball.png");
+        ball = loadSprite(new Texture("sprites/golfball.png"));
+        obstacle = loadSprite(new Texture("sprites/obstacle.png"));
     }
 }

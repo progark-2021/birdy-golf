@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import no.birdygolf.gruppe19.BirdyGolf;
 import no.birdygolf.gruppe19.InputProcessor;
 import no.birdygolf.gruppe19.factory.WorldFactory;
+import no.birdygolf.gruppe19.systems.BoundsSystem;
 import no.birdygolf.gruppe19.systems.MovementSystem;
 import no.birdygolf.gruppe19.systems.RenderingSystem;
 
@@ -32,7 +33,11 @@ public class PlayScreen extends ScreenAdapter {
 
         engine.addSystem(movementSystem);
         engine.addSystem(new RenderingSystem(game.batch));
+        engine.addSystem(new BoundsSystem());
+
         engine.getSystem(RenderingSystem.class).setProcessing(true);
+        engine.getSystem(BoundsSystem.class).setProcessing(true);
+
         world.create();
     }
 
