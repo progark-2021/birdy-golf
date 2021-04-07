@@ -93,7 +93,7 @@ public class WorldFactory {
         SpriteComponent spriteComponent = engine.createComponent(SpriteComponent.class);
         TransformComponent transformComponent = engine.createComponent(TransformComponent.class);
 
-        transformComponent.pos.set(posX, posY, 0.0f);
+        transformComponent.currentPos.set(posX, posY);
         transformComponent.rotation = degrees;
 
         spriteComponent.sprite = Assets.obstacle;
