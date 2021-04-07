@@ -9,11 +9,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+import no.birdygolf.gruppe19.api.FirebaseApi;
 import no.birdygolf.gruppe19.screen.GameScreen;
 import no.birdygolf.gruppe19.screen.PlayScreen;
 import no.birdygolf.gruppe19.screen.TitleScreen;
 
 public class BirdyGolf extends Game {
+    public FirebaseApi firebaseApi;
+
     public SpriteBatch batch;
     public OrthographicCamera camera;
 
@@ -21,6 +24,10 @@ public class BirdyGolf extends Game {
     public TextureAtlas uiAtlas;
     public Skin skin;
 
+    public BirdyGolf(FirebaseApi firebaseApi){
+        super();
+        this.firebaseApi = firebaseApi;
+    }
 
     @Override
     public void create() {

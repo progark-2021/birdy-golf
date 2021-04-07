@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "5087470372",
+    "project_id": "birdy-golf",
+    "storage_bucket": "birdy-golf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5087470372:android:9c68767e80c6c73a6509b1",
+        "android_client_info": {
+          "package_name": "no.birdygolf.gruppe19"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "5087470372-6f9tjgjr5m3uck0g2h1q1jfd5fnq2crd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8ui4QNFdt_GX90yRDnoB3TAf8HIn5Bg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "5087470372-6f9tjgjr5m3uck0g2h1q1jfd5fnq2crd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
