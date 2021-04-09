@@ -27,13 +27,17 @@ public class TutorialScreen  extends ScreenAdapter {
     Label title;
     Label.LabelStyle labelStyle;
 
+    Label text;
+
     TextButton titleScreen;
     TextButton.TextButtonStyle textButtonStyle;
 
     FreeTypeFontGenerator.FreeTypeFontParameter titleParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
     FreeTypeFontGenerator.FreeTypeFontParameter buttonParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    FreeTypeFontGenerator.FreeTypeFontParameter textParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
     BitmapFont titleFont;
     BitmapFont buttonFont;
+    BitmapFont textFont;
 
     private TutorialScreen(BirdyGolf game) {
         this.game = game;
@@ -55,6 +59,7 @@ public class TutorialScreen  extends ScreenAdapter {
     public void dispose() {
         buttonFont.dispose();
         titleFont.dispose();
+        textFont.dispose();
         stage.dispose();
     }
 
@@ -75,6 +80,9 @@ public class TutorialScreen  extends ScreenAdapter {
         titleParameter.size = 72;
         titleFont = game.font.generateFont(titleParameter);
 
+        textParameter.size = 30;
+        textFont = game.font.generateFont(textParameter);
+
         buttonParameter.size = 36;
         buttonFont = game.font.generateFont(buttonParameter);
 
@@ -92,8 +100,17 @@ public class TutorialScreen  extends ScreenAdapter {
         labelStyle.font = titleFont;
         title = new Label("Tutorial", labelStyle);
 
+        Label.LabelStyle labelStyle2 = new Label.LabelStyle();
+        labelStyle2.font = textFont;
+        text = new Label(" tekst til tutoral ", labelStyle2);
+        //text.setWrap(true);
+        //text.setWidth(400);
+
         layout = new Table();
         layout.add(title);
+        layout.row();
+        layout.add(text);
+        //layout.add(text).width(10).pad(10);
         layout.row();
         layout.add(titleScreen).width(400).pad(10);
         layout.pad(10f);
