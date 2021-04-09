@@ -23,6 +23,7 @@ public class BirdyGolf extends Game {
     public FreeTypeFontGenerator font;
     public TextureAtlas uiAtlas;
     public Skin skin;
+    public TitleScreen titleScreen;
 
     public BirdyGolf(FirebaseApi firebaseApi){
         super();
@@ -41,7 +42,8 @@ public class BirdyGolf extends Game {
         skin = new Skin();
         skin.addRegions(uiAtlas);
 
-        setScreen(new PlayScreen(this));
+        //setScreen(new PlayScreen(this));
+        setScreen(titleScreen.getInstance(this));  
     }
 
     @Override
