@@ -6,24 +6,21 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 
 import no.birdygolf.gruppe19.components.BallComponent;
-import no.birdygolf.gruppe19.components.BoundsComponent;
 import no.birdygolf.gruppe19.components.MovementComponent;
-import no.birdygolf.gruppe19.components.StateComponent;
 import no.birdygolf.gruppe19.components.TransformComponent;
 import no.birdygolf.gruppe19.factory.WorldFactory;
 
 //Detecting the
 public class BallSystem extends IteratingSystem {
 
-    private static final Family family = Family.all(BallComponent.class, TransformComponent.class, MovementComponent.class, StateComponent.class).get();
+    private static final Family family = Family.all(BallComponent.class, TransformComponent.class, MovementComponent.class).get();
 
-    private ComponentMapper<BallComponent> ballMapper;
-    private ComponentMapper<TransformComponent> transformMapper;
-    private ComponentMapper<MovementComponent> movementMapper;
-    private ComponentMapper<StateComponent> stateMapper;
+    private final ComponentMapper<BallComponent> ballMapper;
+    private final ComponentMapper<TransformComponent> transformMapper;
+    private final ComponentMapper<MovementComponent> movementMapper;
 
-    private WorldFactory world;
-    private boolean reachedGoal = false; // sets to true when the ball reaches goal
+    private final WorldFactory world;
+    private final boolean reachedGoal = false; // sets to true when the ball reaches goal
 
     public BallSystem(WorldFactory world) {
         super(family);
@@ -33,7 +30,6 @@ public class BallSystem extends IteratingSystem {
         ballMapper = ComponentMapper.getFor(BallComponent.class);
         transformMapper = ComponentMapper.getFor(TransformComponent.class);
         movementMapper = ComponentMapper.getFor(MovementComponent.class);
-        stateMapper = ComponentMapper.getFor(StateComponent.class);
     }
 
     @Override
@@ -50,11 +46,9 @@ public class BallSystem extends IteratingSystem {
     public void intoHole(Entity entity) {
         // sets currentLevel in WorldFactory in "createGolfBall" to the next level
 
-        StateComponent stateComponent = stateMapper.get(entity);
 
         //kan sjekke om vært innom fire leveler og dersom det er tilfellet får man videre til neste Screen som er SummaryScreen
         if (reachedGoal) {
-            stateComponent.setLevel(world.currentLevel += 1); // Going to the next level when reaching goal
             //world.currentLevel += 1;
         }
 
