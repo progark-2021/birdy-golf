@@ -14,16 +14,10 @@ public class TransformComponent implements Component {
     public Vector2 pressedPosition = new Vector2();
     public boolean wasPressed = false;
 
-    // set player
-    public Vector2 startpoint;
-
-    // trajectorypoint
-    public Vector2 trajectoryPoints;
-
     // dragged
     public final Vector2 currentPos = new Vector2();
     public Vector2 velocityVector = new Vector2();
-    public float distance, angle;
+    public float distance;
 
 }
 

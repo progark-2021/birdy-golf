@@ -40,8 +40,6 @@ public class MovementSystem extends IteratingSystem {
 
         tmp.set(mov.velocity).scl(deltaTime);
         pos.currentPos.add(tmp.x, tmp.y);
-
-
     }
 
     /***
@@ -49,7 +47,7 @@ public class MovementSystem extends IteratingSystem {
     * If so it sets the flag to true
      */
     public void setPressed(Entity entity, int screenX, int screenY) {
-        tm.get(entity).pressedPosition.set(new Vector2(screenX, Gdx.graphics.getHeight() - screenY));
+        //tm.get(entity).pressedPosition.set(new Vector2(screenX, Gdx.graphics.getHeight() - screenY));
         tm.get(entity).wasPressed = true;
         System.out.println("set pressed");
         System.out.println("current xXXXX "+tm.get(entity).currentPos.x);
@@ -60,8 +58,6 @@ public class MovementSystem extends IteratingSystem {
             startDrag = new Vector2(screenX,screenY);
         }
         System.out.print("setPressed  " + tm.get(entity).wasPressed);
-
-
     }
 
 
@@ -92,15 +88,20 @@ public class MovementSystem extends IteratingSystem {
             System.out.println("diffX:" + diffX);
             float diffY = currentScreenY - startDrag.y;
             System.out.println("diffY:" + diffY);
-            tm.get(entity).currentPos.set(tm.get(entity).currentPos.x + diffX * 0.1f, tm.get(entity).currentPos.y + diffY * 0.1f);
-            float velocityX = mm.get(entity).velocity.x ;
-            float velocityY = mm.get(entity).velocity.y ;
+            float velocityX = Math.abs(diffX) * 0.1f;
+            float velocityY = Math.abs(diffY) * 0.1f;
+            mm.get(entity).accel.x += mm.get(entity).accel.x * 0.1f;
+            mm.get(entity).accel.y += mm.get(entity).accel.y * 0.1f;
+            velocityX += mm.get(entity).accel.x;
+            velocityY += mm.get(entity).accel.y;
+            tm.get(entity).currentPos.x += velocityX * 0.1f;
+            tm.get(entity).currentPos.y += velocityY * 0.1f;
+            System.out.println("velX:" +velocityX);
+            System.out.println("velY:" +velocityY);
             Vector2 velvec = new Vector2(velocityX, velocityY);
             tm.get(entity).wasPressed = false;
-            mm.get(entity).velocity.set(velvec).sub(velvec);
-
-
-
+            mm.get(entity).velocity.set(velvec);
+            System.out.println("velvec:" + mm.get(entity).velocity);
         }
         tm.get(entity).wasPressed = false;
         charging = false;
