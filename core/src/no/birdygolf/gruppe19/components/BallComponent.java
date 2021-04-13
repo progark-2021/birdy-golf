@@ -11,4 +11,5 @@ public class BallComponent implements Component {
     public int hits = 0; //counting the number the user hits the ball in one level
     public int score = 0; //the user's score
 
+
 }

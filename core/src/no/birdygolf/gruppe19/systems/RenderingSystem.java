@@ -8,14 +8,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.List;
 
+import no.birdygolf.gruppe19.components.BoundsComponent;
+import no.birdygolf.gruppe19.components.MovementComponent;
 import no.birdygolf.gruppe19.components.SpriteComponent;
 import no.birdygolf.gruppe19.components.TransformComponent;
 
 public class RenderingSystem extends IteratingSystem {
     // Entity level
     //private static final Family family = Family.all(TextureComponent.class, TransformComponent.class).get();
-    private static final Family family = Family.all(SpriteComponent.class, TransformComponent.class).get();
-    private final SpriteBatch batch;
+    private static final Family family = Family.all(SpriteComponent.class,TransformComponent.class, MovementComponent.class).get();
+    private SpriteBatch batch;
 
     // Component level
     //private ComponentMapper<TextureComponent> textureMapper;
@@ -31,6 +33,7 @@ public class RenderingSystem extends IteratingSystem {
         //textureMapper = ComponentMapper.getFor(TextureComponent.class);
         spriteMapper = ComponentMapper.getFor(SpriteComponent.class);
         transformMapper = ComponentMapper.getFor(TransformComponent.class);
+
     }
 
     @Override

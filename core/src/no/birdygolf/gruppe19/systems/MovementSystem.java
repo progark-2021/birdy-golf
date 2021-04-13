@@ -1,46 +1,41 @@
 package no.birdygolf.gruppe19.systems;
 
 import com.badlogic.ashley.core.ComponentMapper;
+import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 
 
+import no.birdygolf.gruppe19.components.BallComponent;
 import no.birdygolf.gruppe19.components.MovementComponent;
 import no.birdygolf.gruppe19.components.TransformComponent;
 
-public class MovementSystem extends IteratingSystem {
+public class MovementSystem extends EntitySystem {
     private Vector2 tmp = new Vector2();
     private int currentScreenX;
     private int currentScreenY;
     public static boolean charging = false;
     public Vector2 startDrag;
+    private Entity golfball;
 
-    private ComponentMapper<TransformComponent> tm;
-    private ComponentMapper<MovementComponent> mm;
+
 
     public MovementSystem() {
-        super(Family.all(TransformComponent.class, MovementComponent.class).get());
 
-        tm = ComponentMapper.getFor(TransformComponent.class);
-        mm = ComponentMapper.getFor(MovementComponent.class);
+
+    }
+
+    public void refreshGolfball(){
+        golfball = getEngine().getEntitiesFor(Family.all(BallComponent.class).get()).get(0);
     }
 
 
-    @Override
-    public void processEntity(Entity entity, float deltaTime) {
-        TransformComponent pos = tm.get(entity);
-        MovementComponent mov = mm.get(entity);
-
-        tmp.set(mov.accel).scl(deltaTime);
-        mov.velocity.add(tmp);
-
-        tmp.set(mov.velocity).scl(deltaTime);
-        pos.currentPos.add(tmp.x, tmp.y);
-    }
 
     /***
     * Draws a circle around the current player and checks iff the touchDown was within the range of that circle
@@ -48,7 +43,7 @@ public class MovementSystem extends IteratingSystem {
      */
     public void setPressed(Entity entity, int screenX, int screenY) {
         //tm.get(entity).pressedPosition.set(new Vector2(screenX, Gdx.graphics.getHeight() - screenY));
-        tm.get(entity).wasPressed = true;
+        entity.wasPressed = true;
         System.out.println("set pressed");
         System.out.println("current xXXXX "+tm.get(entity).currentPos.x);
         System.out.println("current yYYYY "+tm.get(entity).currentPos.y);
@@ -84,28 +79,28 @@ public class MovementSystem extends IteratingSystem {
         System.out.print("unpressed  " + tm.get(entity).wasPressed);
         if (charging) {
             System.out.println("position:" + tm.get(entity).currentPos.y);
-            float diffX = startDrag.x - currentScreenX;
-            System.out.println("diffX:" + diffX);
-            float diffY = currentScreenY - startDrag.y;
-            System.out.println("diffY:" + diffY);
-            float velocityX = Math.abs(diffX) * 0.1f;
-            float velocityY = Math.abs(diffY) * 0.1f;
-            mm.get(entity).accel.x += mm.get(entity).accel.x * 0.1f;
-            mm.get(entity).accel.y += mm.get(entity).accel.y * 0.1f;
-            velocityX += mm.get(entity).accel.x;
-            velocityY += mm.get(entity).accel.y;
-            tm.get(entity).currentPos.x += velocityX * 0.1f;
-            tm.get(entity).currentPos.y += velocityY * 0.1f;
-            System.out.println("velX:" +velocityX);
-            System.out.println("velY:" +velocityY);
-            Vector2 velvec = new Vector2(velocityX, velocityY);
+            mm.get(entity).distance.x = startDrag.x - currentScreenX;
+            mm.get(entity).distance.y = currentScreenY - startDrag.y;
+            mm.get(entity).velocity.x= mm.get(entity).distance.x  * 0.1f;
+            mm.get(entity).velocity.y= mm.get(entity).distance.y  * 0.1f;
+            System.out.println("start velocity x : " + mm.get(entity).velocity.x);
+            System.out.println("start velocity y: " + mm.get(entity).velocity.y);
+
+            mm.get(entity).accel.x += - mm.get(entity).velocity.x* 0.01f;
+            mm.get(entity).accel.y += -mm.get(entity).velocity.y* 0.01f;
+
+            //System.out.println("velX:" +velocityX);
+            //System.out.println("velY:" +velocityY);
+            //Vector2 velvec = new Vector2(velocityX, velocityY);
             tm.get(entity).wasPressed = false;
-            mm.get(entity).velocity.set(velvec);
-            System.out.println("velvec:" + mm.get(entity).velocity);
+            //mm.get(entity).velocity.set(velvec);
+            //System.out.println("velvec:" + mm.get(entity).velocity);
         }
         tm.get(entity).wasPressed = false;
         charging = false;
         System.out.print("unpressed  " + tm.get(entity).wasPressed);
 
     }
+
+
 }

@@ -4,6 +4,8 @@ import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import no.birdygolf.gruppe19.BirdyGolf;
@@ -22,23 +24,25 @@ public class PlayScreen extends ScreenAdapter {
     Stage stage;
     WorldFactory world;
     PooledEngine engine;
+    World physicsWorld;
     InputMultiplexer inputMultiplexer;
     private MovementSystem movementSystem;
     private float elapsedTime = 0;
 
     public PlayScreen(BirdyGolf game) {
         this.game = game;
-        engine = new PooledEngine();
-        world = new WorldFactory(engine);
-        stage = new Stage();
+        this.engine = new PooledEngine();
+        this.world = new WorldFactory(engine);
+        this.stage = new Stage();
         this.movementSystem = new MovementSystem();
+        this.physicsWorld= new World(new Vector2(0, 0), true);
 
 
         engine.addSystem(movementSystem);
         engine.addSystem(new RenderingSystem(game.batch));
         engine.addSystem(new BoundsSystem());
         engine.addSystem(new LevelSystem(world));
-
+        engine.getSystem(MovementSystem.class).setProcessing(true);
         engine.getSystem(RenderingSystem.class).setProcessing(true);
         engine.getSystem(BoundsSystem.class).setProcessing(true);
 

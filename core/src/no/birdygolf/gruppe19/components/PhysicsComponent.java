@@ -52,7 +52,7 @@ public class PhysicsComponent implements Component {
 
 
     // Separated into own components
-    /*
+
     private void setFixture(){
         // we can change this to be less hardcoded by adding some of these as parameters in the constructor
         CircleShape circle = new CircleShape();
@@ -62,7 +62,7 @@ public class PhysicsComponent implements Component {
         fixtureDef.friction = 0.4f;
         fixtureDef.restitution = 0.6f;
     }
-    */
+
 
     private void initializeBox2D() {
         Box2D.init();
