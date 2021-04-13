@@ -2,7 +2,10 @@ package no.birdygolf.gruppe19.factory;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import no.birdygolf.gruppe19.Assets;
 import no.birdygolf.gruppe19.components.BallComponent;
@@ -61,8 +64,8 @@ public class WorldFactory {
 
     public void createLevel(Level level) {
         createGolfBall(level.startPosition);
+        createHole(level.holePosition);
         level.obstacles.forEach(obstacle -> createObstacle(obstacle.x, obstacle.y, obstacle.z));
-        // TODO create hole
     }
 
     private void createObstacle(float posX, float posY, float degrees) {
@@ -75,11 +78,29 @@ public class WorldFactory {
         transformComponent.rotation = degrees;
 
         spriteComponent.sprite = Assets.obstacle;
-        spriteComponent.sprite.setScale(0.3f);
+        spriteComponent.sprite.setScale(0.25f);
 
         obstacle.add(spriteComponent);
         obstacle.add(transformComponent);
 
         engine.addEntity(obstacle);
+    }
+
+    private void createHole(Vector2 position) {
+        Entity hole = engine.createEntity();
+
+        SpriteComponent spriteComponent = engine.createComponent(SpriteComponent.class);
+        TransformComponent positionComponent = engine.createComponent(TransformComponent.class);
+
+        spriteComponent.sprite = Assets.hole;
+        spriteComponent.sprite.setScale(0.3f);
+
+        positionComponent.pos.set(position, 0f);
+
+        //adding components to the entity
+        hole.add(spriteComponent);
+        hole.add(positionComponent);
+
+        engine.addEntity(hole);
     }
 }

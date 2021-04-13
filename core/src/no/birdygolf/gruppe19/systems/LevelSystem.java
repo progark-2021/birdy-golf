@@ -31,7 +31,9 @@ public class LevelSystem extends EntitySystem {
      * @param level The new level.
      */
     public void initializeLevel(Level level) {
+        entities.forEach(entity -> System.out.println("entity: " + entity));
         entities.forEach(entity -> getEngine().removeEntity(entity));
+        entities.forEach(entity -> System.out.println("remove entity: " + entity));
         worldFactory.createLevel(level);
     }
 }

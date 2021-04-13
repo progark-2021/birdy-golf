@@ -46,10 +46,10 @@ public class PlayScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         elapsedTime += delta;
-        if (elapsedTime > 5) {
+        /*if (elapsedTime > 5) {
             elapsedTime = 0;
             nextLevel();
-        }
+        }*/
         engine.update(delta);
         game.camera.update();
     }
