@@ -1,9 +1,7 @@
 package no.birdygolf.gruppe19.screen;
 
-import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -11,9 +9,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+
 import no.birdygolf.gruppe19.BirdyGolf;
-import no.birdygolf.gruppe19.factory.WorldFactory;
-import no.birdygolf.gruppe19.systems.MovementSystem;
+
 import static no.birdygolf.gruppe19.screen.ScreenUtils.createInputListener;
 
 
@@ -57,8 +55,6 @@ public class GameScreen extends ScreenAdapter {
 
     @Override
     public void dispose() {
-
-
     }
 
 
