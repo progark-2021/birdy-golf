@@ -31,7 +31,7 @@ public class PlayScreen extends ScreenAdapter {
         engine.getSystem(RenderingSystem.class).setProcessing(true);
         engine.getSystem(BoundsSystem.class).setProcessing(true);
 
-        engine.getSystem(LevelSystem.class).initializeLevel(Level.LEVEL_2);
+        engine.getSystem(LevelSystem.class).initializeLevel(Level.LEVEL_1);
     }
 
     private void nextLevel() {
