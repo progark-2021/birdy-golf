@@ -31,6 +31,7 @@ public class TitleScreen extends ScreenAdapter {
 
     TextButton playGame;
     TextButton highScores;
+    TextButton tutorial;
     TextButtonStyle textButtonStyle;
 
     FreeTypeFontParameter titleParameter = new FreeTypeFontParameter();
@@ -91,11 +92,14 @@ public class TitleScreen extends ScreenAdapter {
         textButtonStyle.up = game.skin.getDrawable("blue_button00");
         textButtonStyle.down = game.skin.getDrawable("blue_button01");
         playGame = new TextButton("Play Game", textButtonStyle);
+        tutorial = new TextButton("Tutorial", textButtonStyle);
         highScores = new TextButton("High Scores", textButtonStyle);
         playGame.pad(15);
+        tutorial.pad(15);
         highScores.pad(15);
 
         playGame.addListener(createInputListener(game, PlayerSelectScreen.getInstance(game)));
+        tutorial.addListener(createInputListener(game, TutorialScreen.getInstance(game)));
         highScores.addListener(createInputListener(game, HighScoreScreen.getInstance(game)));
 
         labelStyle = new Label.LabelStyle();
@@ -109,6 +113,8 @@ public class TitleScreen extends ScreenAdapter {
         layout.add(titleLower);
         layout.row();
         layout.add(playGame).width(400).pad(10);
+        layout.row();
+        layout.add(tutorial).width(400).pad(10);
         layout.row();
         layout.add(highScores).width(400).pad(10);
         layout.pad(10f);
