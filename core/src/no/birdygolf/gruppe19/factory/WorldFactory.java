@@ -3,23 +3,37 @@ package no.birdygolf.gruppe19.factory;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 
 import no.birdygolf.gruppe19.Assets;
 import no.birdygolf.gruppe19.components.BallComponent;
-import no.birdygolf.gruppe19.components.BoundsComponent;
 import no.birdygolf.gruppe19.components.MovementComponent;
+import no.birdygolf.gruppe19.components.PhysicsComponent;
 import no.birdygolf.gruppe19.components.SpriteComponent;
-import no.birdygolf.gruppe19.components.TransformComponent;
 import no.birdygolf.gruppe19.levels.Level;
 
 // Creates the ball entity and adds all the comnponents belonging to this entity
 public class WorldFactory {
 
+    private final World world;
     private final PooledEngine engine;
     public int currentLevel;
 
-    public WorldFactory(PooledEngine engine) {
+    CircleShape circle = new CircleShape();
+    PolygonShape rectangle = new PolygonShape();
+
+    public WorldFactory(PooledEngine engine, World world) {
+        this.world = world;
         this.engine = engine;
+
+        circle.setRadius(6f);
+        rectangle.setAsBox(3f, 1f);
     }
 
     private void createGolfBall(Vector2 position) {
@@ -28,33 +42,38 @@ public class WorldFactory {
         //skal egt ha flere parametere slik at physicscomponent ikke er like hardkodet som nå
         //TextureComponent textureComponent = engine.createComponent(TextureComponent.class);
         SpriteComponent spriteComponent = engine.createComponent(SpriteComponent.class);
-        TransformComponent positionComponent = engine.createComponent(TransformComponent.class);
         MovementComponent movementComponent = engine.createComponent(MovementComponent.class);
-        BoundsComponent boundsComponent = engine.createComponent(BoundsComponent.class);
         BallComponent ballComponent = engine.createComponent(BallComponent.class);
 
         spriteComponent.sprite = Assets.ball;
         spriteComponent.sprite.setScale(0.3f);
 
-        positionComponent.pos.set(position, 0f);
+        BodyDef golfBallBodyDef = new BodyDef();
+        golfBallBodyDef.type = BodyDef.BodyType.DynamicBody;
+        golfBallBodyDef.position.set(position);
 
-        //OBS ikke riktige bounds på grunn av scale
-        //boundsComponent.bounds.width = spriteComponent.sprite.getWidth();
-        boundsComponent.bounds.width = ballComponent.WIDTH;
-        System.out.println("width bounds: " + ballComponent.WIDTH);
-        //boundponent.bounds.height = spriteComponent.sprite.getHeight();
-        boundsComponent.bounds.height = ballComponent.HEIGHT;
-        System.out.println("height bounds " + ballComponent.HEIGHT);
+        Body golfBallBody = world.createBody(golfBallBodyDef);
 
-        //currentLevel = stateComponent.getLevel();
-        System.out.println("current level: " + currentLevel);
+        golfBallBody.setLinearDamping(0.5f);
+
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = circle;
+        fixtureDef.density = 0.1f;
+        fixtureDef.friction = 0.4f;
+        fixtureDef.restitution = 0.6f;
+
+        Fixture fixture = golfBallBody.createFixture(fixtureDef);
+
+        PhysicsComponent physicsComponent = new PhysicsComponent();
+        physicsComponent.fixture = fixture;
+
+        movementComponent.distance = Vector2.Zero;
 
         //adding components to the entity
         golfball.add(spriteComponent);
-        golfball.add(positionComponent);
         golfball.add(movementComponent);
-        golfball.add(boundsComponent);
         golfball.add(ballComponent);
+        golfball.add(physicsComponent);
 
         engine.addEntity(golfball);
     }
@@ -62,23 +81,31 @@ public class WorldFactory {
     public void createLevel(Level level) {
         createGolfBall(level.startPosition);
         level.obstacles.forEach(obstacle -> createObstacle(obstacle.x, obstacle.y, obstacle.z));
+        // F
         // TODO create hole
     }
 
-    private void createObstacle(float posX, float posY, float degrees) {
+    private void createObstacle(float posX, float posY, float radians) {
         Entity obstacle = engine.createEntity();
 
         SpriteComponent spriteComponent = engine.createComponent(SpriteComponent.class);
-        TransformComponent transformComponent = engine.createComponent(TransformComponent.class);
+        PhysicsComponent physicsComponent = engine.createComponent(PhysicsComponent.class);
 
-        transformComponent.pos.set(posX, posY, 0.0f);
-        transformComponent.rotation = degrees;
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+        bodyDef.position.set(posX, posY);
+        bodyDef.angle = radians;
+
+        Body body = world.createBody(bodyDef);
+
+        Fixture fixture = body.createFixture(rectangle, 0f);
+
 
         spriteComponent.sprite = Assets.obstacle;
         spriteComponent.sprite.setScale(0.3f);
 
         obstacle.add(spriteComponent);
-        obstacle.add(transformComponent);
+        obstacle.add(physicsComponent);
 
         engine.addEntity(obstacle);
     }

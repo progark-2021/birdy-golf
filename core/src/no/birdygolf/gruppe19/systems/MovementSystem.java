@@ -1,36 +1,58 @@
 package no.birdygolf.gruppe19.systems;
 
-import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Vector2;
 
+import no.birdygolf.gruppe19.components.BallComponent;
 import no.birdygolf.gruppe19.components.MovementComponent;
-import no.birdygolf.gruppe19.components.TransformComponent;
+import no.birdygolf.gruppe19.components.PhysicsComponent;
 
-public class MovementSystem extends IteratingSystem {
+public class MovementSystem extends EntitySystem {
     private Vector2 tmp = new Vector2();
+    private int currentScreenX;
+    private int currentScreenY;
+    public static boolean charging = false;
+    public Vector2 startDrag;
+    private Entity golfball;
+    boolean wasPressed = false;
 
-    private ComponentMapper<TransformComponent> tm;
-    private ComponentMapper<MovementComponent> mm;
-
-    public MovementSystem() {
-        super(Family.all(TransformComponent.class, MovementComponent.class).get());
-
-        tm = ComponentMapper.getFor(TransformComponent.class);
-        mm = ComponentMapper.getFor(MovementComponent.class);
+    public void refreshGolfball(){
+        golfball = getEngine().getEntitiesFor(Family.all(BallComponent.class).get()).get(0);
     }
 
-    @Override
-    public void processEntity(Entity entity, float deltaTime) {
-        TransformComponent pos = tm.get(entity);
-        MovementComponent mov = mm.get(entity);;
+    public void setPressed(int screenX, int screenY) {
+        wasPressed = true;
+        startDrag = new Vector2(screenX,screenY);
+    }
 
-        tmp.set(mov.accel).scl(deltaTime);
-        mov.velocity.add(tmp);
+    public void dragged(int screenX, int screenY) {
+        if(wasPressed) {
+            this.currentScreenX = screenX;
+            this.currentScreenY = screenY;
+            if(wasPressed){
+                charging = true;
+            }
+        }
+    }
 
-        tmp.set(mov.velocity).scl(deltaTime);
-        pos.pos.add(tmp.x, tmp.y, 0.0f);
+    public void unPressed(){
+        MovementComponent movementComp = golfball.getComponent(MovementComponent.class);
+        if (charging) {
+            movementComp.distance.x = startDrag.x - currentScreenX;
+            movementComp.distance.y = currentScreenY - startDrag.y;
+            Vector2 force = movementComp.distance.scl(100f);
+
+            PhysicsComponent physicsComponent = golfball.getComponent(PhysicsComponent.class);
+            physicsComponent.fixture.getBody().setLinearVelocity(
+                    force);
+
+            System.out.println(physicsComponent.fixture.getBody().getLinearVelocity());
+
+            wasPressed = false;
+        }
+        wasPressed = false;
+        charging = false;
     }
 }

@@ -50,6 +50,7 @@ public class BirdyGolf extends Game {
     public void render() {
         clearBackground();
         super.render();
+
     }
 
     @Override
