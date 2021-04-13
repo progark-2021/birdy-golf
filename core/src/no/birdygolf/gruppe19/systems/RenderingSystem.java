@@ -5,24 +5,22 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 
 import java.util.List;
 
-import no.birdygolf.gruppe19.components.BoundsComponent;
 import no.birdygolf.gruppe19.components.MovementComponent;
+import no.birdygolf.gruppe19.components.PhysicsComponent;
 import no.birdygolf.gruppe19.components.SpriteComponent;
-import no.birdygolf.gruppe19.components.TransformComponent;
 
 public class RenderingSystem extends IteratingSystem {
     // Entity level
-    //private static final Family family = Family.all(TextureComponent.class, TransformComponent.class).get();
-    private static final Family family = Family.all(SpriteComponent.class,TransformComponent.class, MovementComponent.class).get();
+    private static final Family family = Family.all(SpriteComponent.class, PhysicsComponent.class, MovementComponent.class).get();
     private SpriteBatch batch;
 
     // Component level
-    //private ComponentMapper<TextureComponent> textureMapper;
     private final ComponentMapper<SpriteComponent> spriteMapper;
-    private final ComponentMapper<TransformComponent> transformMapper;
+    private final ComponentMapper<PhysicsComponent> physicsMapper;
     private List<Entity> drawQueue;
 
     public RenderingSystem(SpriteBatch batch) {
@@ -30,9 +28,8 @@ public class RenderingSystem extends IteratingSystem {
 
         this.batch = batch;
 
-        //textureMapper = ComponentMapper.getFor(TextureComponent.class);
         spriteMapper = ComponentMapper.getFor(SpriteComponent.class);
-        transformMapper = ComponentMapper.getFor(TransformComponent.class);
+        physicsMapper = ComponentMapper.getFor(PhysicsComponent.class);
 
     }
 
@@ -49,9 +46,12 @@ public class RenderingSystem extends IteratingSystem {
         //can only get entities that satisfies the family restriction
 
         SpriteComponent spriteComponent = spriteMapper.get(entity);
-        TransformComponent transformComponent = transformMapper.get(entity);
-        spriteComponent.sprite.setPosition(transformComponent.currentPos.x, transformComponent.currentPos.y);
-        spriteComponent.sprite.setRotation(transformComponent.rotation);
+        PhysicsComponent physicsComponent = physicsMapper.get(entity);
+        spriteComponent.sprite.setPosition(
+                physicsComponent.fixture.getBody().getPosition().x,
+                physicsComponent.fixture.getBody().getPosition().y);
+
+        spriteComponent.sprite.setRotation(MathUtils.radiansToDegrees * physicsComponent.fixture.getBody().getAngle());
         spriteComponent.sprite.draw(batch);
 
     }

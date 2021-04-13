@@ -7,7 +7,6 @@ import com.badlogic.gdx.InputAdapter;
 public class InputProcessor extends InputAdapter {
 
     private MovementSystem movementSystem;
-    private Entity movementEntity;
 
     /***
      *
@@ -15,7 +14,6 @@ public class InputProcessor extends InputAdapter {
      */
     public InputProcessor(MovementSystem movementSystem) {
         this.movementSystem = movementSystem;
-        movementEntity = movementSystem.getEntities().get(0);
     }
 
     /***
@@ -23,19 +21,19 @@ public class InputProcessor extends InputAdapter {
      */
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        movementSystem.setPressed(movementEntity, screenX, screenY);
+        movementSystem.setPressed(screenX, screenY);
         return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        movementSystem.unPressed(movementEntity);
+        movementSystem.unPressed();
         return false;
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        movementSystem.dragged(movementEntity, screenX, screenY);
+        movementSystem.dragged(screenX, screenY);
         return false;
     }
 }

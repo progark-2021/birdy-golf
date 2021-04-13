@@ -7,16 +7,14 @@ import com.badlogic.ashley.systems.IteratingSystem;
 
 import no.birdygolf.gruppe19.components.BallComponent;
 import no.birdygolf.gruppe19.components.MovementComponent;
-import no.birdygolf.gruppe19.components.TransformComponent;
 import no.birdygolf.gruppe19.factory.WorldFactory;
 
 //Detecting the
 public class BallSystem extends IteratingSystem {
 
-    private static final Family family = Family.all(BallComponent.class, TransformComponent.class, MovementComponent.class).get();
+    private static final Family family = Family.all(BallComponent.class, MovementComponent.class).get();
 
     private final ComponentMapper<BallComponent> ballMapper;
-    private final ComponentMapper<TransformComponent> transformMapper;
     private final ComponentMapper<MovementComponent> movementMapper;
 
     private final WorldFactory world;
@@ -28,17 +26,11 @@ public class BallSystem extends IteratingSystem {
         this.world = world;
 
         ballMapper = ComponentMapper.getFor(BallComponent.class);
-        transformMapper = ComponentMapper.getFor(TransformComponent.class);
         movementMapper = ComponentMapper.getFor(MovementComponent.class);
     }
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-
-    }
-
-    // Detects when ball hits obstacles
-    public void hitObstacle(Entity entity) {
 
     }
 
