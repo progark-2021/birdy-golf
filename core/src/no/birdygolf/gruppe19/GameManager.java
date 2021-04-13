@@ -1,5 +1,6 @@
 package no.birdygolf.gruppe19;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import no.birdygolf.gruppe19.levels.Level;
@@ -12,8 +13,8 @@ public class GameManager {
     public int currentLevel = 0;
 
     public int playerTurn = 0;
-    public List<String> playerNames;
-    public List<Integer> playerHits;
+    public final List<String> playerNames = new ArrayList<>();
+    public final List<Integer> playerHits = new ArrayList<>();
 
 
     private GameManager() {

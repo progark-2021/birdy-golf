@@ -98,7 +98,7 @@ public class TitleScreen extends ScreenAdapter {
         tutorial.pad(15);
         highScores.pad(15);
 
-        playGame.addListener(createInputListener(game, GameScreen.getInstance(game)));
+        playGame.addListener(createInputListener(game, PlayerSelectScreen.getInstance(game)));
         tutorial.addListener(createInputListener(game, TutorialScreen.getInstance(game)));
         highScores.addListener(createInputListener(game, HighScoreScreen.getInstance(game)));
 
