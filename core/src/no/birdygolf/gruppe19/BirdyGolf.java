@@ -40,7 +40,6 @@ public class BirdyGolf extends Game {
         //camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         batch.setProjectionMatrix(camera.combined);
         Assets.load();
-        viewport = new FitViewport(800, 480, camera);
 
         font = new FreeTypeFontGenerator(Gdx.files.internal("fonts/kenvector_future.ttf"));
         uiAtlas = new TextureAtlas(Gdx.files.internal("ui/uiPack.txt"));

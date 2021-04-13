@@ -37,7 +37,7 @@ public class WorldFactory {
         BallComponent ballComponent = engine.createComponent(BallComponent.class);
 
         spriteComponent.sprite = Assets.ball;
-        spriteComponent.sprite.setScale(0.3f);
+        spriteComponent.sprite.setScale(0.1f);
 
         positionComponent.pos.set(position, 0f);
 
@@ -78,7 +78,7 @@ public class WorldFactory {
         transformComponent.rotation = degrees;
 
         spriteComponent.sprite = Assets.obstacle;
-        spriteComponent.sprite.setScale(0.25f);
+        spriteComponent.sprite.setScale(0.1f);
 
         obstacle.add(spriteComponent);
         obstacle.add(transformComponent);
@@ -93,7 +93,7 @@ public class WorldFactory {
         TransformComponent positionComponent = engine.createComponent(TransformComponent.class);
 
         spriteComponent.sprite = Assets.hole;
-        spriteComponent.sprite.setScale(0.3f);
+        spriteComponent.sprite.setScale(0.1f);
 
         positionComponent.pos.set(position, 0f);
 
