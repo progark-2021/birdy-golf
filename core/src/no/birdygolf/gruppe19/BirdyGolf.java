@@ -42,7 +42,6 @@ public class BirdyGolf extends Game {
         skin = new Skin();
         skin.addRegions(uiAtlas);
 
-        //setScreen(new PlayScreen(this));
         setScreen(titleScreen.getInstance(this));  
     }
 
