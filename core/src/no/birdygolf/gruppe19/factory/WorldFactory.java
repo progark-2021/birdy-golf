@@ -2,6 +2,7 @@ package no.birdygolf.gruppe19.factory;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -34,9 +35,9 @@ public class WorldFactory {
         this.world = world;
         this.engine = engine;
 
-        ballShape.setRadius(0.5f);
-        holeShape.setRadius(0.5f);
-        rectangle.setAsBox(0.88f, 0.45f);
+        ballShape.setRadius(0.25f);
+        holeShape.setRadius(0.25f);
+        rectangle.setAsBox(0.88f, 0.44f);
     }
 
     public void createLevel(Level level) {
@@ -52,15 +53,19 @@ public class WorldFactory {
         MovementComponent movementComponent = engine.createComponent(MovementComponent.class);
         BallComponent ballComponent = engine.createComponent(BallComponent.class);
 
-        spriteComponent.sprite = Assets.ball;
-        spriteComponent.sprite.setScale(0.1f);
+        Sprite sprite = spriteComponent.sprite;
+        sprite.set(Assets.ball);
+        sprite.setSize(50f, 50f);
+        sprite.setCenter(25f, 25f);
+        sprite.setOrigin(25f, 25f);
 
         BodyDef golfBallBodyDef = new BodyDef();
         golfBallBodyDef.type = BodyDef.BodyType.DynamicBody;
         golfBallBodyDef.position.set(position.scl(0.01f));
 
         Body golfBallBody = world.createBody(golfBallBodyDef);
-        golfBallBody.setLinearDamping(0.3f);
+        golfBallBody.setLinearDamping(0.4f);
+        golfBallBody.setAngularDamping(0.5f);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = ballShape;
