@@ -45,7 +45,6 @@ public class PlayScreen extends ScreenAdapter {
     InputMultiplexer inputMultiplexer;
     private MovementSystem movementSystem;
     FitViewport viewport;
-    Stage stage;
 
     private Table layout;
     private TextureRegion sound, mute;
@@ -86,13 +85,6 @@ public class PlayScreen extends ScreenAdapter {
         engine.getSystem(MovementSystem.class).refreshGolfball();
     }
 
-    public void show() {
-        inputMultiplexer = new InputMultiplexer();
-        inputMultiplexer.addProcessor(stage);
-        inputMultiplexer.addProcessor(new InputProcessor(engine.getSystem(movementSystem.getClass())));
-        Gdx.input.setInputProcessor(inputMultiplexer);
-    }
-
     private void createUi() {
         viewport = new FitViewport(480, 800, game.camera);
         stage = new Stage(viewport);
@@ -130,31 +122,28 @@ public class PlayScreen extends ScreenAdapter {
     @Override
     public void show() {
         createUi();
-        Gdx.input.setInputProcessor(stage);
+        inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(stage);
+        inputMultiplexer.addProcessor(new InputProcessor(engine.getSystem(movementSystem.getClass())));
+        Gdx.input.setInputProcessor(inputMultiplexer);
 
-        soundButton.addListener(new EventListener() {
-            @Override
-            public boolean handle(Event event) {
-                muted = false;
-                music.play();
-                music.setLooping(true);
-                soundButton.setVisible(false);
-                muteButton.setVisible(true);
+        soundButton.addListener(event -> {
+            muted = false;
+            music.play();
+            music.setLooping(true);
+            soundButton.setVisible(false);
+            muteButton.setVisible(true);
 
-                return false;
-            }
+            return false;
         });
 
-        muteButton.addListener(new EventListener() {
-            @Override
-            public boolean handle(Event event) {
-                muted = true;
-                music.stop();
-                soundButton.setVisible(true);
-                muteButton.setVisible(false);
+        muteButton.addListener(event -> {
+            muted = true;
+            music.stop();
+            soundButton.setVisible(true);
+            muteButton.setVisible(false);
 
-                return false;
-            }
+            return false;
         });
 
     }
