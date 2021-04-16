@@ -5,14 +5,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -30,6 +34,7 @@ import no.birdygolf.gruppe19.systems.RenderingSystem;
 
 public class PlayScreen extends ScreenAdapter {
     private static PlayScreen instance;
+
     private final MovementSystem movementSystem;
     Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
     BirdyGolf game;
@@ -39,6 +44,10 @@ public class PlayScreen extends ScreenAdapter {
     Engine engine;
     InputMultiplexer inputMultiplexer;
     FitViewport viewport;
+    FreeTypeFontGenerator.FreeTypeFontParameter infoParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    BitmapFont infoFont;
+    Label info;
+    Label.LabelStyle infoStyle;
     private float accumulator = 0;
     private Table layout;
     private TextureRegion sound, mute;
@@ -110,9 +119,17 @@ public class PlayScreen extends ScreenAdapter {
         soundButton = new ImageButton(soundDrawable);
         muteButton = new ImageButton(muteDrawable);
 
+        infoParameter.size = 30;
+        infoFont = game.font.generateFont(infoParameter);
+
+        infoStyle = new Label.LabelStyle();
+        infoStyle.font = infoFont;
+        info = new Label("player: score", infoStyle);
+
         layout = new Table();
-        layout.add(muteButton).width(50).padLeft(50);
-        layout.add(soundButton).width(45);
+        layout.add(muteButton).width(50).padLeft(20);
+        layout.add(soundButton).width(50).padRight(40);
+        layout.add(info).width(220);
 
         //initializing the buttons
         if (!muted) {
@@ -123,7 +140,7 @@ public class PlayScreen extends ScreenAdapter {
 
         stage.addActor(layout);
         layout.setPosition(
-                viewport.getWorldWidth() / 10,
+                viewport.getWorldWidth() / 2,
                 viewport.getWorldHeight() - 50
         );
     }
@@ -190,6 +207,46 @@ public class PlayScreen extends ScreenAdapter {
             engine.getSystem(HoleSystem.class).inHole = false;
             GameManager.INSTANCE.nextPlayer();
             nextLevel();
+        }
+
+        switch (GameManager.INSTANCE.currentScore) {
+            case 0:
+            case 1:
+            case 2:
+                infoStyle.fontColor = Color.WHITE;
+                break;
+            case 3:
+            case 4:
+            case 5:
+                infoStyle.fontColor = Color.YELLOW;
+                break;
+            case 6:
+            case 7:
+            case 8:
+                infoStyle.fontColor = Color.GOLD;
+                break;
+            case 9:
+            case 10:
+            case 11:
+                infoStyle.fontColor = Color.RED;
+                break;
+            default:
+                infoStyle.fontColor = Color.FIREBRICK;
+
+        }
+
+        if (!GameManager.INSTANCE.playerNames.isEmpty()) {
+            String playerName = GameManager.INSTANCE.playerNames.get(GameManager.INSTANCE.playerTurn);
+            if (playerName.length() > 8) {
+                playerName = playerName.substring(0, 7) + "..";
+            }
+            info.setText(
+                    (playerName == ""
+                            ? "Player " + (GameManager.INSTANCE.playerTurn + 1)
+                            : playerName)
+                            + ": "
+                            + GameManager.INSTANCE.currentScore
+            );
         }
     }
 

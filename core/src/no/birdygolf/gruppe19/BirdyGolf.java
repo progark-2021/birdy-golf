@@ -25,6 +25,7 @@ public class BirdyGolf extends Game {
     public BirdyGolf(FirebaseApi firebaseApi) {
         super();
         this.firebaseApi = firebaseApi;
+        GameManager.INSTANCE.firebaseApi = firebaseApi;
     }
 
     @Override

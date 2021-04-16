@@ -26,7 +26,9 @@ import static no.birdygolf.gruppe19.screen.ScreenUtils.createInputListener;
 public class PlayerSelectScreen extends ScreenAdapter {
     private static final List<String> players = new ArrayList<>();
     private static final List<TextField> fields = new ArrayList<>();
+    private static final int MAX_PLAYERS = 4;
     private static PlayerSelectScreen instance;
+
     BirdyGolf game;
 
     FitViewport viewport;
@@ -107,7 +109,7 @@ public class PlayerSelectScreen extends ScreenAdapter {
         textButtonStyle.down = game.skin.getDrawable("blue_button01");
         playGame = new TextButton("Play Game", textButtonStyle);
         playGame.pad(15);
-        playGame.addListener(createInputListener(game, GameScreen.getInstance(game)));
+        playGame.addListener(createInputListener(game, PlayScreen.getInstance(game)));
 
 
         textFieldStyle = new TextField.TextFieldStyle();
@@ -151,7 +153,7 @@ public class PlayerSelectScreen extends ScreenAdapter {
             layout.row();
         });
 
-        if (players.size() < 4) {
+        if (players.size() < MAX_PLAYERS) {
             layout.add(addPlayer).width(400).pad(10);
             layout.row();
         }
