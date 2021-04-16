@@ -5,7 +5,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -28,29 +27,27 @@ public class TutorialScreen  extends ScreenAdapter {
     FitViewport viewport;
 
     Stage stage;
-    Table layout;
-    Table tut_layout;
+    Table layout, scrollPane_layout;
+
+    Image dragFinger;
 
     Label title;
-    Label.LabelStyle labelStyle;
 
-    Label text;
-    Label text1;
-    Label text2;
+    Label text_single_player, text_multi_player, text_info, text_rules, text_level_switch;
+    Label single_player, multi_player, rules, info;
 
     TextButton titleScreen;
     TextButton.TextButtonStyle textButtonStyle;
 
+    ScrollPane scrollPane = new ScrollPane(new Table());
     FreeTypeFontGenerator.FreeTypeFontParameter titleParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
     FreeTypeFontGenerator.FreeTypeFontParameter buttonParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    FreeTypeFontGenerator.FreeTypeFontParameter subTitleParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
     FreeTypeFontGenerator.FreeTypeFontParameter textParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
     BitmapFont titleFont;
     BitmapFont buttonFont;
+    BitmapFont subTitleFont;
     BitmapFont textFont;
-    ScrollPane scrollPane = new ScrollPane(new Table());
-
-    Image dragFinger;
-
 
     private TutorialScreen(BirdyGolf game) {
         this.game = game;
@@ -65,7 +62,9 @@ public class TutorialScreen  extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+
         stage.draw();
+        stage.act(delta);
     }
 
     @Override
@@ -93,7 +92,10 @@ public class TutorialScreen  extends ScreenAdapter {
         titleParameter.size = 72;
         titleFont = game.font.generateFont(titleParameter);
 
-        textParameter.size = 30;
+        subTitleParameter.size = 30;
+        subTitleFont=game.font.generateFont(subTitleParameter);
+
+        textParameter.size = 20;
         textFont = game.font.generateFont(textParameter);
 
         buttonParameter.size = 36;
@@ -109,65 +111,89 @@ public class TutorialScreen  extends ScreenAdapter {
         titleScreen.pad(15);
         titleScreen.addListener(createInputListener(game, TitleScreen.getInstance(game)));
 
-        labelStyle = new Label.LabelStyle();
-        labelStyle.font = titleFont;
-        title = new Label("Tutorial", labelStyle);
+        Label.LabelStyle labelStyle_title = new Label.LabelStyle();
+        Label.LabelStyle labelStyle_text = new Label.LabelStyle();
+        Label.LabelStyle labelStyle_subTitle = new Label.LabelStyle();
+        labelStyle_title.font = titleFont;
+        labelStyle_text.font = textFont;
+        labelStyle_subTitle.font = subTitleFont;
+
+        title = new Label("Tutorial", labelStyle_title);
+
+        single_player = new Label("\nSingle player: \n", labelStyle_subTitle);
+        multi_player = new Label("\nMulti player: \n", labelStyle_subTitle);
+        rules = new Label("\nWinning rules\n", labelStyle_subTitle);
+        info = new Label("\nGame Info: \n", labelStyle_subTitle);
+
+        text_info = new Label(
+                "This is a golf game! \n\n" +
+                "The game has four levels, \n" +
+                "and in each levels you have\n" +
+                "five hits. \n\n" +
+                "To hit the golf ball\n" +
+                "drag your finger and release",labelStyle_text);
+
+        text_level_switch = new Label(
+                        "if the ball enters the hole or \n" +
+                        "all five hits are used, \n" +
+                        "the next level will show. \n\n", labelStyle_text);
+
+        text_rules = new Label(
+                         "To win the game, the ball must\n" +
+                         "enter the hole with as few\n" +
+                         "hits as possible!\n", labelStyle_text);
+
+        text_single_player = new Label(
+                " \n" +
+                        "press 'play game' button \n" +
+                        "enter your name and press play\n", labelStyle_text);
+        text_multi_player = new Label(
+                "press 'play game' button \n" +
+                      "enter player 1. name \n" +
+                      "press 'add player' and enter \n" +
+                      "player 2. name\n\n" +
+                      "The players plays every second\n" +
+                      "time in each levels,\n", labelStyle_text);
 
 
-
-        Label.LabelStyle labelStyle2 = new Label.LabelStyle();
-        labelStyle2.font = textFont;
-        text = new Label(
-                "To play single game, \n" +
-                        " \n" +
-                        " \n" +
-                        "yo \n" +
-                        "giske \n" +
-                        "katrine \n" +
-                        "haldis \n", labelStyle2);
-        //text 1 og text 2 kan fjernes
-        /*
-        text1 = new Label(" tekst til tutoral1 ", labelStyle2);
-        text2 = new Label(" tekst til tutoral2 ", labelStyle2);
-
-
-         */
-        dragFinger = new Image(new SpriteDrawable(new Sprite(new Texture("tutorial/drag_finger.gif"))));
-        //sound = new TextureRegion(new Texture("music/sound.png"));
-        //dragFinger = new Image(new Texture("tutorial/One_finger_drag.png"));
+        dragFinger = new Image(new SpriteDrawable(new Sprite(new Texture("tutorial/drag_finger.png"))));
 
         layout = new Table();
-        //layout.setFillParent(true);
         layout.add(title);
         layout.row();
-        layout.add(scrollPane).height(500).width(460).padBottom(15).padTop(15);
-
-        //layout.add(text).width(10).pad(10);
+        layout.add(scrollPane).height(500).width(460).padBottom(15).padTop(5);
         layout.row();
-
-
-
-
         layout.add(titleScreen).width(400).pad(10);
         layout.pad(10f);
 
 
-        tut_layout = new Table();
-        //tut_layout.setFillParent(true);
-        tut_layout.add(text);
-        tut_layout.row();
-        /*
-        tut_layout.add(text1);
-        tut_layout.row();
-        tut_layout.add(text2);
-        tut_layout.row();
+        scrollPane_layout = new Table();
+        scrollPane_layout.add(info);
+        scrollPane_layout.row();
+        scrollPane_layout.add(text_info);
+        scrollPane_layout.row();
 
-         */
-        tut_layout.add(dragFinger);
-        tut_layout.row();
+        scrollPane_layout.add(dragFinger);
+        scrollPane_layout.row();
+
+        scrollPane_layout.add(text_level_switch);
+        scrollPane_layout.row();
+        scrollPane_layout.add(rules);
+        scrollPane_layout.row();
+        scrollPane_layout.add(text_rules);
+        scrollPane_layout.row();
+
+        scrollPane_layout.add(single_player);
+        scrollPane_layout.row();
+        scrollPane_layout.add(text_single_player);
+        scrollPane_layout.row();
+        scrollPane_layout.add(multi_player);
+        scrollPane_layout.row();
+        scrollPane_layout.add(text_multi_player);
+        scrollPane_layout.row();
 
 
-        scrollPane.setActor(tut_layout);
+        scrollPane.setActor(scrollPane_layout);
         ScrollPane.ScrollPaneStyle scrollPaneStyle = new ScrollPane.ScrollPaneStyle();
         scrollPane.setStyle(scrollPaneStyle);
 
@@ -176,16 +202,6 @@ public class TutorialScreen  extends ScreenAdapter {
                 (viewport.getWorldWidth() - layout.getWidth()) / 2,
                 (viewport.getWorldHeight() - layout.getHeight())/2
         );
-
-        /*
-        stage.addActor(layout2);
-        layout2.setPosition(
-                (viewport.getWorldWidth() - layout2.getWidth()) / 2,
-                (viewport.getWorldHeight() - layout2.getHeight()) / 6
-        );
-
-         */
-
     
 
     }
