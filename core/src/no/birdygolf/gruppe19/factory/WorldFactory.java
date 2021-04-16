@@ -2,6 +2,8 @@ package no.birdygolf.gruppe19.factory;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -10,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import no.birdygolf.gruppe19.Assets;
 import no.birdygolf.gruppe19.components.BallComponent;
@@ -46,7 +49,7 @@ public class WorldFactory {
         BallComponent ballComponent = engine.createComponent(BallComponent.class);
 
         spriteComponent.sprite = Assets.ball;
-        spriteComponent.sprite.setScale(0.3f);
+        spriteComponent.sprite.setScale(0.1f);
 
         BodyDef golfBallBodyDef = new BodyDef();
         golfBallBodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -80,9 +83,8 @@ public class WorldFactory {
 
     public void createLevel(Level level) {
         createGolfBall(level.startPosition);
+        createHole(level.holePosition);
         level.obstacles.forEach(obstacle -> createObstacle(obstacle.x, obstacle.y, obstacle.z));
-        // F
-        // TODO create hole
     }
 
     private void createObstacle(float posX, float posY, float radians) {
@@ -102,11 +104,29 @@ public class WorldFactory {
 
 
         spriteComponent.sprite = Assets.obstacle;
-        spriteComponent.sprite.setScale(0.3f);
+        spriteComponent.sprite.setScale(0.1f);
 
         obstacle.add(spriteComponent);
         obstacle.add(physicsComponent);
 
         engine.addEntity(obstacle);
+    }
+
+    private void createHole(Vector2 position) {
+        Entity hole = engine.createEntity();
+
+        SpriteComponent spriteComponent = engine.createComponent(SpriteComponent.class);
+        TransformComponent positionComponent = engine.createComponent(TransformComponent.class);
+
+        spriteComponent.sprite = Assets.hole;
+        spriteComponent.sprite.setScale(0.1f);
+
+        positionComponent.pos.set(position, 0f);
+
+        //adding components to the entity
+        hole.add(spriteComponent);
+        hole.add(positionComponent);
+
+        engine.addEntity(hole);
     }
 }

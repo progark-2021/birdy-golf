@@ -9,7 +9,7 @@ import com.badlogic.gdx.Gdx;
 // contains an assetManager that control which assets that are used
 public class Assets {
 
-    public static Sprite ball, obstacle;
+    public static Sprite ball, obstacle, hole;
 
     /*
     public static Texture loadTexture (String file) {
@@ -25,5 +25,6 @@ public class Assets {
         //ball = loadTexture("sprites/golfball.png");
         ball = loadSprite(new Texture("sprites/golfball.png"));
         obstacle = loadSprite(new Texture("sprites/obstacle.png"));
+        hole = loadSprite(new Texture("sprites/hole2.png"));
     }
 }
