@@ -83,7 +83,7 @@ public class WorldFactory {
 
     public void createLevel(Level level) {
         createGolfBall(level.startPosition);
-        createHole(level.holePosition);
+        //createHole(level.holePosition);
         level.obstacles.forEach(obstacle -> createObstacle(obstacle.x, obstacle.y, obstacle.z));
     }
 
@@ -111,7 +111,7 @@ public class WorldFactory {
 
         engine.addEntity(obstacle);
     }
-
+    /*
     private void createHole(Vector2 position) {
         Entity hole = engine.createEntity();
 
@@ -129,4 +129,6 @@ public class WorldFactory {
 
         engine.addEntity(hole);
     }
+
+     */
 }
