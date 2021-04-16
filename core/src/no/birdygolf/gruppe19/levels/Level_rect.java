@@ -9,10 +9,27 @@ import java.util.List;
 
 public enum Level_rect {
     LEVEL_1(
-            new Vector2(-20, 400), //hull
-            new Vector2(-20, -100), //ball
-            new Rectangle(100, 100, 100, 100),
-            new Rectangle(0, 0, 100, 100)
+            new Vector2(0, 400), //hull
+            new Vector2(200, 100), //ball
+            //Bottom wall
+            new Rectangle(20, 0, 440, 40),
+            //Side walls
+            new Rectangle(20, 0, 40, 300),
+            new Rectangle(420, 0, 40, 300),
+            //Midde walls
+            new Rectangle(20, 300, 120, 40),
+            new Rectangle(340, 300, 120, 40),
+            //Side walls
+            new Rectangle(140, 300, 40, 300),
+            new Rectangle(300, 300, 40, 300),
+            //Midde walls
+            new Rectangle(60, 600, 120, 40),
+            new Rectangle(300, 600, 120, 40),
+            //Side walls
+            new Rectangle(20, 600, 40, 150),
+            new Rectangle(420, 600, 40, 150),
+            //Top wall
+            new Rectangle(20, 750, 440, 40)
     ),
 
     LEVEL_2(
