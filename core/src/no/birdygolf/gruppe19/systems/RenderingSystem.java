@@ -50,8 +50,8 @@ public class RenderingSystem extends IteratingSystem {
         PhysicsComponent physicsComponent = physicsMapper.get(entity);
 
         spriteComponent.sprite.setPosition(
-                physicsComponent.fixture.getBody().getPosition().x * 100,
-                physicsComponent.fixture.getBody().getPosition().y * 100
+                physicsComponent.fixture.getBody().getPosition().x * 100 - spriteComponent.sprite.getWidth() / 2,
+                physicsComponent.fixture.getBody().getPosition().y * 100 - spriteComponent.sprite.getHeight() / 2
         );
         spriteComponent.sprite.setRotation(MathUtils.radiansToDegrees * physicsComponent.fixture.getBody().getAngle());
         spriteComponent.sprite.draw(batch);

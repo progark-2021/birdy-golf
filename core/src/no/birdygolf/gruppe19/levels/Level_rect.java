@@ -9,8 +9,8 @@ import java.util.List;
 
 public enum Level_rect {
     LEVEL_1(
-            new Vector2(-20, 400), //hull
-            new Vector2(-20, -100), //ball
+            new Vector2(240, 400), //hull
+            new Vector2(240, 100), //ball
             new Rectangle(100, 100, 100, 100),
             new Rectangle(0, 0, 100, 100)
     ),
