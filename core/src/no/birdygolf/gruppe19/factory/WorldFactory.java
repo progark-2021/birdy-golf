@@ -3,6 +3,7 @@ package no.birdygolf.gruppe19.factory;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -16,8 +17,10 @@ import no.birdygolf.gruppe19.Assets;
 import no.birdygolf.gruppe19.components.BallComponent;
 import no.birdygolf.gruppe19.components.MovementComponent;
 import no.birdygolf.gruppe19.components.PhysicsComponent;
+import no.birdygolf.gruppe19.components.RectangleComponent;
 import no.birdygolf.gruppe19.components.SpriteComponent;
 import no.birdygolf.gruppe19.levels.Level;
+import no.birdygolf.gruppe19.levels.Level_rect;
 
 // Creates the ball entity and adds all the comnponents belonging to this entity
 public class WorldFactory {
@@ -39,10 +42,10 @@ public class WorldFactory {
         rectangle.setAsBox(0.88f, 0.45f);
     }
 
-    public void createLevel(Level level) {
+    public void createLevel(Level_rect level) {
         createGolfBall(level.startPosition);
         createHole(level.holePosition);
-        level.obstacles.forEach(obstacle -> createObstacle(obstacle.x, obstacle.y, obstacle.z));
+        level.obstacles.forEach(obstacle -> createObstacle(obstacle.getX(), obstacle.getY(), obstacle.getWidth(), obstacle.getHeight()));
     }
 
     private void createGolfBall(Vector2 position) {
@@ -84,27 +87,35 @@ public class WorldFactory {
         engine.addEntity(golfball);
     }
 
-    private void createObstacle(float posX, float posY, float radians) {
+    private void createObstacle(float posX, float posY, float width, float height) {
         Entity obstacle = engine.createEntity();
 
-        SpriteComponent spriteComponent = engine.createComponent(SpriteComponent.class);
+        //SpriteComponent spriteComponent = engine.createComponent(SpriteComponent.class);
         PhysicsComponent physicsComponent = engine.createComponent(PhysicsComponent.class);
+        RectangleComponent rectangleComponent = engine.createComponent(RectangleComponent.class);
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
         bodyDef.position.set(posX * 0.01f, posY * 0.01f);
-        bodyDef.angle = MathUtils.degreesToRadians * radians;
+        //bodyDef.angle = MathUtils.degreesToRadians * radians;
 
         Body body = world.createBody(bodyDef);
+
+        PolygonShape wall = new PolygonShape();
+        wall.setAsBox(width * 0.01f, height * 0.01f);
 
         Fixture fixture = body.createFixture(rectangle, 0f);
         physicsComponent.fixture = fixture;
 
-        spriteComponent.sprite = Assets.obstacle;
-        spriteComponent.sprite.setScale(0.1f);
+        //spriteComponent.sprite = Assets.obstacle;
+        //spriteComponent.sprite.setScale(0.1f);
 
-        obstacle.add(spriteComponent);
+        //obstacle.add(spriteComponent);
+
+        rectangleComponent.rectangle = new Rectangle(posX, posY, width, height);
+
         obstacle.add(physicsComponent);
+        obstacle.add(rectangleComponent);
 
         engine.addEntity(obstacle);
     }

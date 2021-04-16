@@ -28,8 +28,10 @@ import no.birdygolf.gruppe19.components.BallComponent;
 import no.birdygolf.gruppe19.components.PhysicsComponent;
 import no.birdygolf.gruppe19.factory.WorldFactory;
 import no.birdygolf.gruppe19.levels.Level;
+import no.birdygolf.gruppe19.levels.Level_rect;
 import no.birdygolf.gruppe19.systems.LevelSystem;
 import no.birdygolf.gruppe19.systems.MovementSystem;
+import no.birdygolf.gruppe19.systems.RenderingObsSystem;
 import no.birdygolf.gruppe19.systems.RenderingSystem;
 
 public class PlayScreen extends ScreenAdapter {
@@ -66,22 +68,24 @@ public class PlayScreen extends ScreenAdapter {
 
         engine.addSystem(movementSystem);
         engine.addSystem(new RenderingSystem(game.batch));
+        engine.addSystem(new RenderingObsSystem(game.camera));
         engine.addSystem(new LevelSystem(factory));
         engine.getSystem(MovementSystem.class).setProcessing(true);
         engine.getSystem(RenderingSystem.class).setProcessing(true);
+        engine.getSystem(RenderingObsSystem.class).setProcessing(true);
 
-        engine.getSystem(LevelSystem.class).initializeLevel(Level.LEVEL_1);
+        engine.getSystem(LevelSystem.class).initializeLevel(Level_rect.LEVEL_1);
         engine.getSystem(MovementSystem.class).refreshGolfball();
     }
 
     private void nextLevel() {
         int currentLevel = ++GameManager.INSTANCE.currentLevel;
-        if (currentLevel == Level.values().length) {
+        if (currentLevel == Level_rect.values().length) {
             game.setScreen(HighScoreScreen.getInstance(game));
             music.stop();
             return;
         }
-        engine.getSystem(LevelSystem.class).initializeLevel(Level.values()[currentLevel]);
+        engine.getSystem(LevelSystem.class).initializeLevel(Level_rect.values()[currentLevel]);
         engine.getSystem(MovementSystem.class).refreshGolfball();
     }
 
@@ -163,7 +167,7 @@ public class PlayScreen extends ScreenAdapter {
             accumulator -= 1/60f;
         }
 
-        System.out.println(engine.getEntitiesFor(Family.all(BallComponent.class).get()).get(0).getComponent(PhysicsComponent.class).fixture.getBody().getLinearVelocity());
+        //System.out.println(engine.getEntitiesFor(Family.all(BallComponent.class).get()).get(0).getComponent(PhysicsComponent.class).fixture.getBody().getLinearVelocity());
         stage.draw();
     }
 
