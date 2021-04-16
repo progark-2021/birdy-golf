@@ -24,7 +24,6 @@ public class RenderingSystem extends IteratingSystem {
     // Component level
     private final ComponentMapper<SpriteComponent> spriteMapper;
     private final ComponentMapper<PhysicsComponent> physicsMapper;
-    private List<Entity> drawQueue;
 
     public RenderingSystem(SpriteBatch batch) {
         super(family);
@@ -54,7 +53,6 @@ public class RenderingSystem extends IteratingSystem {
                 physicsComponent.fixture.getBody().getPosition().x * 100,
                 physicsComponent.fixture.getBody().getPosition().y * 100
         );
-
         spriteComponent.sprite.setRotation(MathUtils.radiansToDegrees * physicsComponent.fixture.getBody().getAngle());
         spriteComponent.sprite.draw(batch);
     }

@@ -166,8 +166,6 @@ public class PlayScreen extends ScreenAdapter {
             world.step(1/60f, 6, 2);
             accumulator -= 1/60f;
         }
-
-        //System.out.println(engine.getEntitiesFor(Family.all(BallComponent.class).get()).get(0).getComponent(PhysicsComponent.class).fixture.getBody().getLinearVelocity());
         stage.draw();
     }
 

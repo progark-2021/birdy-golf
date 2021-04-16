@@ -47,8 +47,6 @@ public class MovementSystem extends EntitySystem {
             PhysicsComponent physicsComponent = golfball.getComponent(PhysicsComponent.class);
             physicsComponent.fixture.getBody().setLinearVelocity(force);
 
-            System.out.println(physicsComponent.fixture.getBody().getLinearVelocity());
-
             wasPressed = false;
         }
         wasPressed = false;
