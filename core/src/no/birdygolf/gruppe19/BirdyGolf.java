@@ -8,12 +8,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 import no.birdygolf.gruppe19.api.FirebaseApi;
-import no.birdygolf.gruppe19.screen.GameScreen;
-import no.birdygolf.gruppe19.screen.PlayScreen;
 import no.birdygolf.gruppe19.screen.TitleScreen;
 
 public class BirdyGolf extends Game {
@@ -21,14 +17,12 @@ public class BirdyGolf extends Game {
 
     public SpriteBatch batch;
     public OrthographicCamera camera;
-    public FitViewport viewport;
 
     public FreeTypeFontGenerator font;
     public TextureAtlas uiAtlas;
     public Skin skin;
-    public TitleScreen titleScreen;
 
-    public BirdyGolf(FirebaseApi firebaseApi){
+    public BirdyGolf(FirebaseApi firebaseApi) {
         super();
         this.firebaseApi = firebaseApi;
     }
@@ -38,7 +32,6 @@ public class BirdyGolf extends Game {
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 480, 800);
-        //camera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         batch.setProjectionMatrix(camera.combined);
         Assets.load();
 
@@ -47,8 +40,7 @@ public class BirdyGolf extends Game {
         skin = new Skin();
         skin.addRegions(uiAtlas);
 
-        setScreen(new PlayScreen(this));
-        //setScreen(titleScreen.getInstance(this));
+        setScreen(TitleScreen.getInstance(this));
     }
 
     @Override

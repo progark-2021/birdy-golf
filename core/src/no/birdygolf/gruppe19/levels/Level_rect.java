@@ -9,7 +9,7 @@ import java.util.List;
 
 public enum Level_rect {
     LEVEL_1(
-            new Vector2(0, 400), //hull
+            new Vector2(240, 400), //hull
             new Vector2(200, 100), //ball
             //Bottom wall
             new Rectangle(20, 0, 440, 40),
@@ -33,7 +33,7 @@ public enum Level_rect {
     ),
 
     LEVEL_2(
-            new Vector2(-150, 400), //hull
+            new Vector2(110, 600), //hull
             new Vector2(100, 100), //ball
             //Bottom wall
             new Rectangle(20, 0, 440, 40),

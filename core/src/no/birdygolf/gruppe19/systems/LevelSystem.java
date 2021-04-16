@@ -6,13 +6,12 @@ import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 
-import no.birdygolf.gruppe19.components.SpriteComponent;
+import no.birdygolf.gruppe19.components.PhysicsComponent;
 import no.birdygolf.gruppe19.factory.WorldFactory;
-import no.birdygolf.gruppe19.levels.Level;
 import no.birdygolf.gruppe19.levels.Level_rect;
 
 public class LevelSystem extends EntitySystem {
-    private static final Family family = Family.all(SpriteComponent.class).get();
+    private static final Family family = Family.all(PhysicsComponent.class).get();
     private final WorldFactory worldFactory;
     private ImmutableArray<Entity> entities;
 
@@ -33,8 +32,10 @@ public class LevelSystem extends EntitySystem {
      */
     public void initializeLevel(Level_rect level) {
 
-        while(entities.size()>0){
-            entities.forEach(entity->getEngine().removeEntity(entity));
+        while (entities.size() > 0) {
+            entities.forEach(entity -> {
+                getEngine().removeAllEntities();
+            });
         }
 
         worldFactory.createLevel(level);

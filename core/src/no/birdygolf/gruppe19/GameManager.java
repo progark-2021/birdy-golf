@@ -10,7 +10,7 @@ public class GameManager {
 
 
     private final no.birdygolf.gruppe19.levels.Level[] levels = Level.values();
-    public int currentLevel = 0;
+    public int currentLevel = -1;
 
     public int playerTurn = 0;
     public final List<String> playerNames = new ArrayList<>();
@@ -27,6 +27,13 @@ public class GameManager {
 
     public void increaseHits() {
         playerHits.set(playerTurn, playerHits.get(playerTurn) + 1);
+    }
+
+    public void resetGame(){
+        playerTurn = 0;
+        playerNames.clear();
+        playerHits.clear();
+        currentLevel = -1;
     }
 
 }
