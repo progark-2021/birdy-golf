@@ -56,7 +56,7 @@ public class RenderingObsSystem extends IteratingSystem {
 
 
         shape.begin(ShapeType.Filled);
-        shape.setColor(Color.RED);
+        shape.setColor(Color.TAN); //Change color
         shape.rect(rectangleComponent.rectangle.getX(), rectangleComponent.rectangle.getY(), rectangleComponent.rectangle.getWidth(), rectangleComponent.rectangle.getHeight());
         shape.end();
 
