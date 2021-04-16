@@ -42,11 +42,10 @@ public class MovementSystem extends EntitySystem {
         if (charging) {
             movementComp.distance.x = startDrag.x - currentScreenX;
             movementComp.distance.y = currentScreenY - startDrag.y;
-            Vector2 force = movementComp.distance.scl(100f);
+            Vector2 force = movementComp.distance.scl(0.02f);
 
             PhysicsComponent physicsComponent = golfball.getComponent(PhysicsComponent.class);
-            physicsComponent.fixture.getBody().setLinearVelocity(
-                    force);
+            physicsComponent.fixture.getBody().setLinearVelocity(force);
 
             System.out.println(physicsComponent.fixture.getBody().getLinearVelocity());
 

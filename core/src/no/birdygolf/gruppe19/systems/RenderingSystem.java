@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import no.birdygolf.gruppe19.components.SpriteComponent;
 
 public class RenderingSystem extends IteratingSystem {
     // Entity level
-    private static final Family family = Family.all(SpriteComponent.class, PhysicsComponent.class, MovementComponent.class).get();
+    private static final Family family = Family.all(SpriteComponent.class, PhysicsComponent.class).get();
     private SpriteBatch batch;
 
     // Component level
@@ -48,8 +49,9 @@ public class RenderingSystem extends IteratingSystem {
         SpriteComponent spriteComponent = spriteMapper.get(entity);
         PhysicsComponent physicsComponent = physicsMapper.get(entity);
         spriteComponent.sprite.setPosition(
-                physicsComponent.fixture.getBody().getPosition().x,
-                physicsComponent.fixture.getBody().getPosition().y);
+                physicsComponent.fixture.getBody().getPosition().x * 100,
+                physicsComponent.fixture.getBody().getPosition().y * 100
+        );
 
         spriteComponent.sprite.setRotation(MathUtils.radiansToDegrees * physicsComponent.fixture.getBody().getAngle());
         spriteComponent.sprite.draw(batch);
