@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -16,44 +17,49 @@ import no.birdygolf.gruppe19.components.PhysicsComponent;
 import no.birdygolf.gruppe19.components.RectangleComponent;
 import no.birdygolf.gruppe19.components.SpriteComponent;
 
-public class RenderingSystem extends IteratingSystem {
+import static com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
+
+public class RenderingObsSystem extends IteratingSystem {
     // Entity level
-    private static final Family family = Family.all(SpriteComponent.class, PhysicsComponent.class).get();
-    private SpriteBatch batch;
+    private static final Family family = Family.all(PhysicsComponent.class, RectangleComponent.class).get();
+    //private SpriteBatch batch;
+    private ShapeRenderer shape;
+    private Camera camera;
 
     // Component level
-    private final ComponentMapper<SpriteComponent> spriteMapper;
     private final ComponentMapper<PhysicsComponent> physicsMapper;
+    private final ComponentMapper<RectangleComponent> rectangleMapper;
+    private List<Entity> drawQueue;
 
-    public RenderingSystem(SpriteBatch batch) {
+    public RenderingObsSystem(Camera camera) {
         super(family);
 
-        this.batch = batch;
-
-        spriteMapper = ComponentMapper.getFor(SpriteComponent.class);
+        this.camera = camera;
+        //this.batch = batch;
+        this.shape = new ShapeRenderer();
+        shape.setProjectionMatrix(camera.combined);
         physicsMapper = ComponentMapper.getFor(PhysicsComponent.class);
+        rectangleMapper = ComponentMapper.getFor(RectangleComponent.class);
     }
 
     @Override
     public void update(float deltaTime) {
-        batch.begin();
-        // calls IteratingSystem and for each entity it calls the processEntity method
         super.update(deltaTime);
-        batch.end();
     }
+
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         //can only get entities that satisfies the family restriction
 
-        SpriteComponent spriteComponent = spriteMapper.get(entity);
-        PhysicsComponent physicsComponent = physicsMapper.get(entity);
+        RectangleComponent rectangleComponent = rectangleMapper.get(entity);
 
-        spriteComponent.sprite.setPosition(
-                physicsComponent.fixture.getBody().getPosition().x * 100,
-                physicsComponent.fixture.getBody().getPosition().y * 100
-        );
-        spriteComponent.sprite.setRotation(MathUtils.radiansToDegrees * physicsComponent.fixture.getBody().getAngle());
-        spriteComponent.sprite.draw(batch);
+
+        shape.begin(ShapeType.Filled);
+        shape.setColor(Color.RED);
+        shape.rect(rectangleComponent.rectangle.getX(), rectangleComponent.rectangle.getY(), rectangleComponent.rectangle.getWidth(), rectangleComponent.rectangle.getHeight());
+        shape.end();
+
     }
+
 }
