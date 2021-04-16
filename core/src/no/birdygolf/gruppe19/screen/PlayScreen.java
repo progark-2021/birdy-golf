@@ -74,7 +74,7 @@ public class PlayScreen extends ScreenAdapter {
         engine.getSystem(RenderingSystem.class).setProcessing(true);
         engine.getSystem(RenderingObsSystem.class).setProcessing(true);
 
-        engine.getSystem(LevelSystem.class).initializeLevel(Level_rect.LEVEL_1);
+        engine.getSystem(LevelSystem.class).initializeLevel(Level_rect.LEVEL_2);
         engine.getSystem(MovementSystem.class).refreshGolfball();
     }
 
