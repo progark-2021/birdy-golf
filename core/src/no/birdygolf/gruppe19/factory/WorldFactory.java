@@ -101,15 +101,15 @@ public class WorldFactory {
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
-        bodyDef.position.set(posX * 0.01f, posY * 0.01f);
+        bodyDef.position.set(posX * 0.01f + width*0.01f/2, posY * 0.01f + height*0.01f/2);
         //bodyDef.angle = MathUtils.degreesToRadians * radians;
 
         Body body = world.createBody(bodyDef);
 
         PolygonShape wall = new PolygonShape();
-        wall.setAsBox(width * 0.01f, height * 0.01f);
+        wall.setAsBox(width * 0.005f, height * 0.005f);
 
-        Fixture fixture = body.createFixture(rectangle, 0f);
+        Fixture fixture = body.createFixture(wall, 0f);
         physicsComponent.fixture = fixture;
 
         //spriteComponent.sprite = Assets.obstacle;
