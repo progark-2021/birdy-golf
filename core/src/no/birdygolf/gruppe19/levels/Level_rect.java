@@ -9,7 +9,7 @@ import java.util.List;
 
 public enum Level_rect {
     LEVEL_1(
-            new Vector2(240, 400), //hull
+            new Vector2(240, 700), //hull
             new Vector2(200, 100), //ball
             //Bottom wall
             new Rectangle(20, 0, 440, 40),
@@ -33,7 +33,7 @@ public enum Level_rect {
     ),
 
     LEVEL_2(
-            new Vector2(110, 600), //hull
+            new Vector2(150, 650), //hull
             new Vector2(100, 100), //ball
             //Bottom wall
             new Rectangle(20, 0, 440, 40),
@@ -49,17 +49,48 @@ public enum Level_rect {
             //Side wall
             new Rectangle(20, 500, 40, 250),
 
-            /*//Side walls
-            new Rectangle(140, 300, 40, 300),
-            new Rectangle(300, 300, 40, 300),
-            //Midde walls
-            new Rectangle(60, 600, 120, 40),
-            new Rectangle(300, 600, 120, 40),
-            //Side walls
-            new Rectangle(20, 600, 40, 150),
-            new Rectangle(420, 600, 40, 150),*/
+        /*//Side walls
+        new Rectangle(140, 300, 40, 300),
+        new Rectangle(300, 300, 40, 300),
+        //Midde walls
+        new Rectangle(60, 600, 120, 40),
+        new Rectangle(300, 600, 120, 40),
+        //Side walls
+        new Rectangle(20, 600, 40, 150),
+        new Rectangle(420, 600, 40, 150),*/
             //Top wall
             new Rectangle(20, 750, 440, 40)
+    ),
+    LEVEL_3(
+            new Vector2(-150, 400), //hull
+            new Vector2(100, 100), //ball
+            new Rectangle(20, 0, 440, 40)
+    ),
+    LEVEL_4(
+            new Vector2(370, 710), //hull
+            new Vector2(200, 200), //ball
+            //Bottom wall
+            new Rectangle(120, 0, 200, 40),
+            //Side walls small
+            new Rectangle(120, 0, 40, 200),
+            new Rectangle(320, 0, 40, 200),
+            new Rectangle(120, 550, 40, 230),
+            new Rectangle(320, 550, 40, 100),
+            //Middle vertical wall
+            new Rectangle(20, 200, 140, 40),
+            new Rectangle(320, 200, 140, 40),
+            //Side wall big
+            new Rectangle(20, 230, 40, 320),
+            new Rectangle(420, 230, 40, 320),
+            new Rectangle(420, 650, 40, 140),
+            //Middle vertical wall
+            new Rectangle(20, 550, 140, 40),
+            new Rectangle(320, 550, 140, 40),
+            new Rectangle(320, 630, 140, 40),
+            //Top vertical
+            new Rectangle(120, 750, 330, 40),
+            //middle sand
+            new Rectangle(180, 345, 120, 100)
     );
 
 
