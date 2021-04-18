@@ -127,7 +127,7 @@ public class PlayScreen extends ScreenAdapter {
         info = new Label("player: score", infoStyle);
 
         layout = new Table();
-        layout.add(muteButton).width(50).padLeft(20);
+        layout.add(muteButton).width(50);
         layout.add(soundButton).width(50).padRight(40);
         layout.add(info).width(220);
 
@@ -141,7 +141,7 @@ public class PlayScreen extends ScreenAdapter {
         stage.addActor(layout);
         layout.setPosition(
                 viewport.getWorldWidth() / 2,
-                viewport.getWorldHeight() - 50
+                viewport.getWorldHeight() - 30
         );
     }
 
