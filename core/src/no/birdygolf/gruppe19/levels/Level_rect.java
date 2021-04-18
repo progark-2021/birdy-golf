@@ -48,22 +48,29 @@ public enum Level_rect {
             new Rectangle(20, 500, 200, 40),
             //Side wall
             new Rectangle(20, 500, 40, 250),
-        /*//Side walls
-        new Rectangle(140, 300, 40, 300),
-        new Rectangle(300, 300, 40, 300),
-        //Midde walls
-        new Rectangle(60, 600, 120, 40),
-        new Rectangle(300, 600, 120, 40),
-        //Side walls
-        new Rectangle(20, 600, 40, 150),
-        new Rectangle(420, 600, 40, 150),*/
             //Top wall
             new Rectangle(20, 750, 440, 40)
     ),
     LEVEL_3(
-            new Vector2(100, 600), //hull
-            new Vector2(100, 100), //ball
-            new Rectangle(20, 0, 440, 40)
+            new Vector2(120, 680), //hull
+            new Vector2(100, 120), //ball
+
+            new Rectangle(20, 0, 440, 40),
+            //Side walls
+            new Rectangle(20, 0, 40, 250),
+            new Rectangle(420, 0, 40, 600),
+            //Middle vertical wall
+            new Rectangle(20, 210, 240, 40),
+            //Middle wall
+            new Rectangle(260, 210, 40, 240),
+            new Rectangle(20, 410, 240, 40),
+            //Left wall
+            new Rectangle(20, 450, 40, 270),
+            new Rectangle(180, 600, 280, 40),
+            new Rectangle(180, 600, 40, 120),
+            //Top wall
+            new Rectangle(20, 720, 200, 40)
+
     ),
     LEVEL_4(
             new Vector2(370, 710), //hull
