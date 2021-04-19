@@ -1,3 +1,4 @@
+
 package no.birdygolf.gruppe19.screen;
 
 import com.badlogic.gdx.Gdx;

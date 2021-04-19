@@ -120,6 +120,7 @@ public class WorldFactory {
         engine.addEntity(hole);
     }
 
+
     private void createObstacle(float posX, float posY, float width, float height) {
         Entity obstacle = engine.createEntity();
 
