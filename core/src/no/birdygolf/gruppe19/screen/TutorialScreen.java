@@ -21,33 +21,23 @@ import static no.birdygolf.gruppe19.screen.ScreenUtils.createInputListener;
 
 public class TutorialScreen  extends ScreenAdapter {
     private static TutorialScreen instance;
+    private BirdyGolf game;
+    private FitViewport viewport;
+    private Stage stage;
+    private Table layout, scrollPane_layout;
+    private Image dragFinger;
+    private Label title;
+    private Label text_single_player, text_multi_player, text_info, text_rules, text_level_switch;
+    private Label single_player, multi_player, rules, info;
+    private TextButton titleScreen;
+    private TextButton.TextButtonStyle textButtonStyle;
 
-    BirdyGolf game;
-
-    FitViewport viewport;
-
-    Stage stage;
-    Table layout, scrollPane_layout;
-
-    Image dragFinger;
-
-    Label title;
-
-    Label text_single_player, text_multi_player, text_info, text_rules, text_level_switch;
-    Label single_player, multi_player, rules, info;
-
-    TextButton titleScreen;
-    TextButton.TextButtonStyle textButtonStyle;
-
-    ScrollPane scrollPane = new ScrollPane(new Table());
-    FreeTypeFontGenerator.FreeTypeFontParameter titleParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    FreeTypeFontGenerator.FreeTypeFontParameter buttonParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    FreeTypeFontGenerator.FreeTypeFontParameter subTitleParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    FreeTypeFontGenerator.FreeTypeFontParameter textParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    BitmapFont titleFont;
-    BitmapFont buttonFont;
-    BitmapFont subTitleFont;
-    BitmapFont textFont;
+    private ScrollPane scrollPane = new ScrollPane(new Table());
+    private FreeTypeFontGenerator.FreeTypeFontParameter titleParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    private FreeTypeFontGenerator.FreeTypeFontParameter buttonParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    private FreeTypeFontGenerator.FreeTypeFontParameter subTitleParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    private FreeTypeFontGenerator.FreeTypeFontParameter textParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    private BitmapFont titleFont, buttonFont, subTitleFont, textFont;
 
     private TutorialScreen(BirdyGolf game) {
         this.game = game;
@@ -62,7 +52,6 @@ public class TutorialScreen  extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-
         stage.draw();
         stage.act(delta);
     }
@@ -192,7 +181,6 @@ public class TutorialScreen  extends ScreenAdapter {
         scrollPane_layout.add(text_multi_player);
         scrollPane_layout.row();
 
-
         scrollPane.setActor(scrollPane_layout);
         ScrollPane.ScrollPaneStyle scrollPaneStyle = new ScrollPane.ScrollPaneStyle();
         scrollPane.setStyle(scrollPaneStyle);
@@ -202,8 +190,5 @@ public class TutorialScreen  extends ScreenAdapter {
                 (viewport.getWorldWidth() - layout.getWidth()) / 2,
                 (viewport.getWorldHeight() - layout.getHeight())/2
         );
-    
-
     }
-
 }

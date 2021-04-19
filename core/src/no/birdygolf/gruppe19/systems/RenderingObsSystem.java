@@ -46,8 +46,6 @@ public class RenderingObsSystem extends IteratingSystem {
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         RectangleComponent rectangleComponent = rectangleMapper.get(entity);
-
-
         shapeRenderer.begin(ShapeType.Filled);
         shapeRenderer.setColor(Color.TAN); //Change color
         shapeRenderer.rect(rectangleComponent.rectangle.getX(), rectangleComponent.rectangle.getY(), rectangleComponent.rectangle.getWidth(), rectangleComponent.rectangle.getHeight());

@@ -17,28 +17,17 @@ import static no.birdygolf.gruppe19.screen.ScreenUtils.createInputListener;
 
 public class TitleScreen extends ScreenAdapter {
     private static TitleScreen instance;
-
-    BirdyGolf game;
-
-    FitViewport viewport;
-
-    Stage stage;
-    Table layout;
-
-    Label titleUpper;
-    Label titleLower;
-    Label.LabelStyle labelStyle;
-
-    TextButton playGame;
-    TextButton highScores;
-    TextButton tutorial;
-    TextButtonStyle textButtonStyle;
-
-    FreeTypeFontParameter titleParameter = new FreeTypeFontParameter();
-    FreeTypeFontParameter buttonParameter = new FreeTypeFontParameter();
-    BitmapFont titleFont;
-    BitmapFont buttonFont;
-
+    private BirdyGolf game;
+    private FitViewport viewport;
+    private Stage stage;
+    private Table layout;
+    private Label titleUpper, titleLower;
+    private Label.LabelStyle labelStyle;
+    private TextButton playGame, highScores, tutorial;
+    private TextButtonStyle textButtonStyle;
+    private FreeTypeFontParameter titleParameter = new FreeTypeFontParameter();
+    private FreeTypeFontParameter buttonParameter = new FreeTypeFontParameter();
+    private BitmapFont titleFont, buttonFont;
 
     private TitleScreen(BirdyGolf game) {
         this.game = game;

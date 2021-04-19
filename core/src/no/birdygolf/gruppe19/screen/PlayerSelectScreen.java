@@ -24,33 +24,22 @@ import no.birdygolf.gruppe19.GameManager;
 import static no.birdygolf.gruppe19.screen.ScreenUtils.createInputListener;
 
 public class PlayerSelectScreen extends ScreenAdapter {
+
     private static final List<String> players = new ArrayList<>();
     private static final List<TextField> fields = new ArrayList<>();
     private static final int MAX_PLAYERS = 4;
     private static PlayerSelectScreen instance;
-
-    BirdyGolf game;
-
-    FitViewport viewport;
-
-    Stage stage;
-    Table layout;
-
-    Label titleUpper;
-    Label titleLower;
-    Label.LabelStyle labelStyle;
-
-    TextButton playGame;
-    TextButton addPlayer;
-    TextButtonStyle textButtonStyle;
-
-    TextField.TextFieldStyle textFieldStyle;
-
-    FreeTypeFontParameter titleParameter = new FreeTypeFontParameter();
-    FreeTypeFontParameter buttonParameter = new FreeTypeFontParameter();
-    BitmapFont titleFont;
-    BitmapFont buttonFont;
-
+    private BirdyGolf game;
+    private FitViewport viewport;
+    private Stage stage;
+    private Table layout;
+    private Label titleUpper, titleLower;
+    private Label.LabelStyle labelStyle;
+    private TextButton playGame, addPlayer;
+    private TextButtonStyle textButtonStyle;
+    private TextField.TextFieldStyle textFieldStyle;
+    private FreeTypeFontParameter titleParameter = new FreeTypeFontParameter(), buttonParameter = new FreeTypeFontParameter();
+    private BitmapFont titleFont, buttonFont;
 
     private PlayerSelectScreen(BirdyGolf game) {
         this.game = game;

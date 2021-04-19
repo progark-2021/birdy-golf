@@ -9,8 +9,8 @@ import java.util.List;
 
 public enum Level_rect {
     LEVEL_1(
-            new Vector2(240, 700), //hull
-            new Vector2(240, 100), //ball
+            new Vector2(240, 700),
+            new Vector2(240, 100),
             //Bottom wall
             new Rectangle(20, 0, 440, 40),
             //Side walls
@@ -33,8 +33,8 @@ public enum Level_rect {
     ),
 
     LEVEL_2(
-            new Vector2(120, 600), //hull
-            new Vector2(120, 100), //ball
+            new Vector2(120, 600),
+            new Vector2(120, 100),
             //Bottom wall
             new Rectangle(20, 0, 440, 40),
             //Side walls
@@ -52,9 +52,8 @@ public enum Level_rect {
             new Rectangle(20, 750, 440, 40)
     ),
     LEVEL_3(
-            new Vector2(120, 680), //hull
-            new Vector2(100, 120), //ball
-
+            new Vector2(120, 680),
+            new Vector2(100, 120),
             new Rectangle(20, 0, 440, 40),
             //Side walls
             new Rectangle(20, 0, 40, 250),
@@ -70,11 +69,10 @@ public enum Level_rect {
             new Rectangle(180, 600, 40, 120),
             //Top wall
             new Rectangle(20, 720, 200, 40)
-
     ),
     LEVEL_4(
-            new Vector2(370, 710), //hull
-            new Vector2(240, 100), //ball
+            new Vector2(370, 710),
+            new Vector2(240, 100),
             //Bottom wall
             new Rectangle(120, 0, 200, 40),
             //Side walls small

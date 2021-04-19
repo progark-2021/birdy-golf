@@ -14,10 +14,8 @@ import no.birdygolf.gruppe19.screen.TitleScreen;
 
 public class BirdyGolf extends Game {
     public FirebaseApi firebaseApi;
-
     public SpriteBatch batch;
     public OrthographicCamera camera;
-
     public FreeTypeFontGenerator font;
     public TextureAtlas uiAtlas;
     public Skin skin;

@@ -33,21 +33,20 @@ import no.birdygolf.gruppe19.systems.RenderingObsSystem;
 import no.birdygolf.gruppe19.systems.RenderingSystem;
 
 public class PlayScreen extends ScreenAdapter {
-    private static PlayScreen instance;
 
+    private static PlayScreen instance;
     private final MovementSystem movementSystem;
-    Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
-    BirdyGolf game;
-    Stage stage;
-    WorldFactory factory;
-    World world;
-    Engine engine;
-    InputMultiplexer inputMultiplexer;
-    FitViewport viewport;
-    FreeTypeFontGenerator.FreeTypeFontParameter infoParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    BitmapFont infoFont;
-    Label info;
-    Label.LabelStyle infoStyle;
+    private BirdyGolf game;
+    private Stage stage;
+    private WorldFactory factory;
+    private World world;
+    private Engine engine;
+    private InputMultiplexer inputMultiplexer;
+    private FitViewport viewport;
+    private FreeTypeFontGenerator.FreeTypeFontParameter infoParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    private BitmapFont infoFont;
+    private Label info;
+    private Label.LabelStyle infoStyle;
     private float accumulator = 0;
     private Table layout;
     private TextureRegion sound, mute;
@@ -98,7 +97,6 @@ public class PlayScreen extends ScreenAdapter {
             game.setScreen(HighScoreScreen.getInstance(game));
             return;
         }
-
         engine.getSystem(LevelSystem.class).initializeLevel(Level_rect.values()[currentLevel]);
         engine.getSystem(MovementSystem.class).fetchGolfBall();
         engine.getSystem(HoleSystem.class).fetchEntities();
@@ -193,7 +191,6 @@ public class PlayScreen extends ScreenAdapter {
     public void render(float delta) {
         engine.update(delta);
         Matrix4 debugMatrix = game.camera.combined.cpy().scale(100, 100, 1);
-        debugRenderer.render(world, debugMatrix);
         game.camera.update();
 
         float frameTime = Math.min(delta, 0.25f);

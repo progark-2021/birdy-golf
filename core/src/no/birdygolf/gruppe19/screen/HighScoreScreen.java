@@ -23,29 +23,21 @@ import no.birdygolf.gruppe19.api.ScoreObserver;
 import static no.birdygolf.gruppe19.screen.ScreenUtils.createInputListener;
 
 public class HighScoreScreen extends ScreenAdapter implements ScoreObserver {
+
     private static HighScoreScreen instance;
-
-    BirdyGolf game;
-
-    FitViewport viewport;
-
-    Stage stage;
-    Table layout;
-
-    Label.LabelStyle titleStyle;
-
-    TextButton titleScreen;
-    TextButton.TextButtonStyle textButtonStyle;
-
-    FreeTypeFontGenerator.FreeTypeFontParameter titleParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    FreeTypeFontGenerator.FreeTypeFontParameter buttonParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    FreeTypeFontGenerator.FreeTypeFontParameter listParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    BitmapFont titleFont;
-    BitmapFont buttonFont;
-    BitmapFont listFont;
-
-    ScrollPane scrollPane = new ScrollPane(new Table());
-    Table highScoreTable;
+    private BirdyGolf game;
+    private FitViewport viewport;
+    private Stage stage;
+    private Table layout;
+    private Label.LabelStyle titleStyle;
+    private TextButton titleScreen;
+    private TextButton.TextButtonStyle textButtonStyle;
+    private FreeTypeFontGenerator.FreeTypeFontParameter titleParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    private FreeTypeFontGenerator.FreeTypeFontParameter buttonParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    private FreeTypeFontGenerator.FreeTypeFontParameter listParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    private BitmapFont titleFont, buttonFont, listFont;
+    private ScrollPane scrollPane = new ScrollPane(new Table());
+    private Table highScoreTable;
 
     private HighScoreScreen(BirdyGolf game) {
         this.game = game;
@@ -166,12 +158,10 @@ public class HighScoreScreen extends ScreenAdapter implements ScoreObserver {
                 i++;
             }
         }
-
         highScoreTable.setWidth(460);
         scrollPane.setActor(highScoreTable);
         ScrollPane.ScrollPaneStyle scrollPaneStyle = new ScrollPane.ScrollPaneStyle();
         scrollPane.setStyle(scrollPaneStyle);
-
     }
 
     @Override

@@ -7,16 +7,14 @@ import com.badlogic.gdx.InputAdapter;
 public class InputProcessor extends InputAdapter {
 
     private MovementSystem movementSystem;
-
-    /***
-     *
+    /*
      * @param movementSystem: The system that controls the physics of the gameworld
      */
     public InputProcessor(MovementSystem movementSystem) {
         this.movementSystem = movementSystem;
     }
 
-    /***
+    /*
      * Methods that defines the event of touches on screen.
      */
     @Override
