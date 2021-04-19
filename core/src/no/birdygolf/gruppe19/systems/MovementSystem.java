@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.math.Vector2;
 
+import no.birdygolf.gruppe19.GameManager;
 import no.birdygolf.gruppe19.components.BallComponent;
 import no.birdygolf.gruppe19.components.MovementComponent;
 import no.birdygolf.gruppe19.components.PhysicsComponent;
@@ -18,7 +19,7 @@ public class MovementSystem extends EntitySystem {
     private Entity golfball;
     boolean wasPressed = false;
 
-    public void refreshGolfball(){
+    public void fetchGolfBall(){
         golfball = getEngine().getEntitiesFor(Family.all(BallComponent.class).get()).get(0);
     }
 
@@ -40,17 +41,14 @@ public class MovementSystem extends EntitySystem {
     public void unPressed(){
         MovementComponent movementComp = golfball.getComponent(MovementComponent.class);
         if (charging) {
+            GameManager.INSTANCE.increaseHits();
+
             movementComp.distance.x = startDrag.x - currentScreenX;
             movementComp.distance.y = currentScreenY - startDrag.y;
-            Vector2 force = movementComp.distance.scl(100f);
+            Vector2 force = movementComp.distance.scl(0.002f);
 
             PhysicsComponent physicsComponent = golfball.getComponent(PhysicsComponent.class);
-            physicsComponent.fixture.getBody().setLinearVelocity(
-                    force);
-
-            System.out.println(physicsComponent.fixture.getBody().getLinearVelocity());
-
-            wasPressed = false;
+            physicsComponent.fixture.getBody().applyLinearImpulse(force, physicsComponent.fixture.getBody().getWorldCenter(), true);
         }
         wasPressed = false;
         charging = false;

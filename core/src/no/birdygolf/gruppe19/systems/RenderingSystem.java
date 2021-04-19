@@ -4,24 +4,26 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 
 import java.util.List;
 
 import no.birdygolf.gruppe19.components.MovementComponent;
 import no.birdygolf.gruppe19.components.PhysicsComponent;
+import no.birdygolf.gruppe19.components.RectangleComponent;
 import no.birdygolf.gruppe19.components.SpriteComponent;
 
 public class RenderingSystem extends IteratingSystem {
     // Entity level
-    private static final Family family = Family.all(SpriteComponent.class, PhysicsComponent.class, MovementComponent.class).get();
+    private static final Family family = Family.all(SpriteComponent.class, PhysicsComponent.class).get();
     private SpriteBatch batch;
 
     // Component level
     private final ComponentMapper<SpriteComponent> spriteMapper;
     private final ComponentMapper<PhysicsComponent> physicsMapper;
-    private List<Entity> drawQueue;
 
     public RenderingSystem(SpriteBatch batch) {
         super(family);
@@ -30,7 +32,6 @@ public class RenderingSystem extends IteratingSystem {
 
         spriteMapper = ComponentMapper.getFor(SpriteComponent.class);
         physicsMapper = ComponentMapper.getFor(PhysicsComponent.class);
-
     }
 
     @Override
@@ -47,12 +48,12 @@ public class RenderingSystem extends IteratingSystem {
 
         SpriteComponent spriteComponent = spriteMapper.get(entity);
         PhysicsComponent physicsComponent = physicsMapper.get(entity);
-        spriteComponent.sprite.setPosition(
-                physicsComponent.fixture.getBody().getPosition().x,
-                physicsComponent.fixture.getBody().getPosition().y);
 
+        spriteComponent.sprite.setPosition(
+                physicsComponent.fixture.getBody().getPosition().x * 100 - spriteComponent.sprite.getWidth() / 2,
+                physicsComponent.fixture.getBody().getPosition().y * 100 - spriteComponent.sprite.getHeight() / 2
+        );
         spriteComponent.sprite.setRotation(MathUtils.radiansToDegrees * physicsComponent.fixture.getBody().getAngle());
         spriteComponent.sprite.draw(batch);
-
     }
 }
