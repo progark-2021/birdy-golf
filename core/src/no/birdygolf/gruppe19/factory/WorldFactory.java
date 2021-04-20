@@ -20,7 +20,7 @@ import no.birdygolf.gruppe19.component.MovementComponent;
 import no.birdygolf.gruppe19.component.PhysicsComponent;
 import no.birdygolf.gruppe19.component.RectangleComponent;
 import no.birdygolf.gruppe19.component.SpriteComponent;
-import no.birdygolf.gruppe19.level.Level_rect;
+import no.birdygolf.gruppe19.level.Level;
 
 // Creates the ball entity and adds all the comnponents belonging to this entity
 public class WorldFactory {
@@ -36,7 +36,7 @@ public class WorldFactory {
         this.world = world;
     }
 
-    public void createLevel(Level_rect level) {
+    public void createLevel(Level level) {
         createGolfBall(level.startPosition);
         createHole(level.holePosition);
         level.obstacles.forEach(obstacle -> createObstacle(obstacle.getX(), obstacle.getY(), obstacle.getWidth(), obstacle.getHeight()));

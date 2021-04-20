@@ -5,13 +5,11 @@ import java.util.List;
 
 import no.birdygolf.gruppe19.api.FirebaseApi;
 import no.birdygolf.gruppe19.api.ScoreDto;
-import no.birdygolf.gruppe19.level.Level;
 
 public class GameManager {
     public static final GameManager INSTANCE = new GameManager();
     public final List<String> playerNames = new ArrayList<>();
     public final List<Integer> playerHits = new ArrayList<>();
-    private final Level[] levels = Level.values();
     public FirebaseApi firebaseApi;
     public int currentLevel = -1;
     public int playerTurn = 0;

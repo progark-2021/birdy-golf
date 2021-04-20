@@ -25,7 +25,7 @@ import no.birdygolf.gruppe19.BirdyGolf;
 import no.birdygolf.gruppe19.GameManager;
 import no.birdygolf.gruppe19.InputProcessor;
 import no.birdygolf.gruppe19.factory.WorldFactory;
-import no.birdygolf.gruppe19.level.Level_rect;
+import no.birdygolf.gruppe19.level.Level;
 import no.birdygolf.gruppe19.system.HoleSystem;
 import no.birdygolf.gruppe19.system.LevelSystem;
 import no.birdygolf.gruppe19.system.MovementSystem;
@@ -92,14 +92,14 @@ public class PlayScreen extends ScreenAdapter {
         }
 
         // Stop game if last level has been played
-        if (currentLevel == Level_rect.values().length) {
+        if (currentLevel == Level.values().length) {
             music.stop();
             GameManager.INSTANCE.resetGame();
             game.setScreen(HighScoreScreen.getInstance(game));
             return;
         }
 
-        engine.getSystem(LevelSystem.class).initializeLevel(Level_rect.values()[currentLevel]);
+        engine.getSystem(LevelSystem.class).initializeLevel(Level.values()[currentLevel]);
         engine.getSystem(MovementSystem.class).fetchGolfBall();
         engine.getSystem(HoleSystem.class).fetchEntities();
     }

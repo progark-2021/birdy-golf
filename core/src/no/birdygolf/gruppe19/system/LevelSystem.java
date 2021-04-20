@@ -8,7 +8,7 @@ import com.badlogic.ashley.utils.ImmutableArray;
 
 import no.birdygolf.gruppe19.component.PhysicsComponent;
 import no.birdygolf.gruppe19.factory.WorldFactory;
-import no.birdygolf.gruppe19.level.Level_rect;
+import no.birdygolf.gruppe19.level.Level;
 
 public class LevelSystem extends EntitySystem {
     private static final Family family = Family.all(PhysicsComponent.class).get();
@@ -30,7 +30,7 @@ public class LevelSystem extends EntitySystem {
      *
      * @param level The new level.
      */
-    public void initializeLevel(Level_rect level) {
+    public void initializeLevel(Level level) {
 
         while (entities.size() > 0) {
             entities.forEach(entity -> {
