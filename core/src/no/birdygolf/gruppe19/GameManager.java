@@ -34,7 +34,7 @@ public class GameManager {
         for (int i = 0; i < playerNames.size(); i++) {
             firebaseApi.postScore(
                     new ScoreDto(
-                            playerNames.get(i) == ""
+                            playerNames.get(i).equals("")
                                     ? "Anonymous"
                                     : playerNames.get(i),
                             playerHits.get(i)
