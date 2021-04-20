@@ -25,8 +25,8 @@ import no.birdygolf.gruppe19.levels.Level_rect;
 // Creates the ball entity and adds all the comnponents belonging to this entity
 public class WorldFactory {
 
-    private World world;
     private final Engine engine;
+    private World world;
 
     public WorldFactory(Engine engine) {
         this.engine = engine;
@@ -60,8 +60,8 @@ public class WorldFactory {
         golfBallBodyDef.position.set(position.cpy().scl(0.01f));
 
         Body body = world.createBody(golfBallBodyDef);
-        body.setLinearDamping(0.4f);
-        body.setAngularDamping(0.5f);
+        body.setLinearDamping(0.8f);
+        body.setAngularDamping(0.6f);
 
         CircleShape ballShape = new CircleShape();
         ballShape.setRadius(0.25f);
@@ -69,7 +69,7 @@ public class WorldFactory {
         fixtureDef.shape = ballShape;
         fixtureDef.density = 0.1f;
         fixtureDef.friction = 0.4f;
-        fixtureDef.restitution = 0.6f;
+        fixtureDef.restitution = 0.5f;
 
         Fixture fixture = body.createFixture(fixtureDef);
         ballShape.dispose();
