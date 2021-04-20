@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -193,10 +192,9 @@ public class PlayScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         engine.update(delta);
-        Matrix4 debugMatrix = game.camera.combined.cpy().scale(100, 100, 1);
-        debugRenderer.render(world, debugMatrix);
         game.camera.update();
 
+        // Run physics calculations on set time steps.
         float frameTime = Math.min(delta, 0.25f);
         accumulator += frameTime;
         while (accumulator >= 1 / 60f) {
