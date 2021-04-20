@@ -8,40 +8,23 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
-import java.util.List;
-
 import no.birdygolf.gruppe19.component.PhysicsComponent;
 import no.birdygolf.gruppe19.component.RectangleComponent;
 
-import static com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
+import static com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class RenderingObsSystem extends IteratingSystem {
-    // Entity level
     private static final Family family = Family.all(PhysicsComponent.class, RectangleComponent.class).get();
-    //private SpriteBatch batch;
-    private ShapeRenderer shapeRenderer;
-    private Camera camera;
-
-    // Component level
-    private final ComponentMapper<PhysicsComponent> physicsMapper;
     private final ComponentMapper<RectangleComponent> rectangleMapper;
-    private List<Entity> drawQueue;
+    private final ShapeRenderer shapeRenderer;
 
     public RenderingObsSystem(Camera camera) {
         super(family);
 
-        this.camera = camera;
         this.shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(camera.combined);
-        physicsMapper = ComponentMapper.getFor(PhysicsComponent.class);
         rectangleMapper = ComponentMapper.getFor(RectangleComponent.class);
     }
-
-    @Override
-    public void update(float deltaTime) {
-        super.update(deltaTime);
-    }
-
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
@@ -49,7 +32,7 @@ public class RenderingObsSystem extends IteratingSystem {
 
 
         shapeRenderer.begin(ShapeType.Filled);
-        shapeRenderer.setColor(Color.TAN); //Change color
+        shapeRenderer.setColor(Color.TAN);
         shapeRenderer.rect(rectangleComponent.rectangle.getX(), rectangleComponent.rectangle.getY(), rectangleComponent.rectangle.getWidth(), rectangleComponent.rectangle.getHeight());
         shapeRenderer.end();
     }

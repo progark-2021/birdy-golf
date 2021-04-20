@@ -14,13 +14,12 @@ public class MovementSystem extends EntitySystem {
     public static boolean charging = false;
     public Vector2 startDrag;
     boolean wasPressed = false;
-    private final Vector2 tmp = new Vector2();
     private int currentScreenX;
     private int currentScreenY;
-    private Entity golfball;
+    private Entity golfBall;
 
     public void fetchGolfBall() {
-        golfball = getEngine().getEntitiesFor(Family.all(BallComponent.class).get()).get(0);
+        golfBall = getEngine().getEntitiesFor(Family.all(BallComponent.class).get()).get(0);
     }
 
     public void setPressed(int screenX, int screenY) {
@@ -32,14 +31,12 @@ public class MovementSystem extends EntitySystem {
         if (wasPressed) {
             this.currentScreenX = screenX;
             this.currentScreenY = screenY;
-            if (wasPressed) {
-                charging = true;
-            }
+            charging = true;
         }
     }
 
     public void unPressed() {
-        MovementComponent movementComp = golfball.getComponent(MovementComponent.class);
+        MovementComponent movementComp = golfBall.getComponent(MovementComponent.class);
         if (charging) {
             GameManager.INSTANCE.increaseHits();
 
@@ -47,7 +44,7 @@ public class MovementSystem extends EntitySystem {
             movementComp.distance.y = currentScreenY - startDrag.y;
             Vector2 force = movementComp.distance.scl(0.00025f);
 
-            PhysicsComponent physicsComponent = golfball.getComponent(PhysicsComponent.class);
+            PhysicsComponent physicsComponent = golfBall.getComponent(PhysicsComponent.class);
             physicsComponent.fixture.getBody().applyLinearImpulse(force, physicsComponent.fixture.getBody().getWorldCenter(), true);
         }
         wasPressed = false;

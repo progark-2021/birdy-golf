@@ -33,9 +33,7 @@ public class LevelSystem extends EntitySystem {
     public void initializeLevel(Level level) {
 
         while (entities.size() > 0) {
-            entities.forEach(entity -> {
-                getEngine().removeAllEntities();
-            });
+            entities.forEach(entity -> getEngine().removeAllEntities());
         }
 
         worldFactory.createLevel(level);

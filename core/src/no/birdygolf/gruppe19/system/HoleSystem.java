@@ -10,18 +10,13 @@ import no.birdygolf.gruppe19.component.HoleComponent;
 import no.birdygolf.gruppe19.component.PhysicsComponent;
 
 public class HoleSystem extends EntitySystem {
+    public boolean inHole;
     private Fixture ball;
     private Fixture hole;
-    public boolean inHole;
 
-    public void fetchEntities(){
+    public void fetchEntities() {
         ball = getEngine().getEntitiesFor(Family.all(BallComponent.class).get()).get(0).getComponent(PhysicsComponent.class).fixture;
         hole = getEngine().getEntitiesFor(Family.all(HoleComponent.class).get()).get(0).getComponent(PhysicsComponent.class).fixture;
-    }
-
-    public void clearEntities() {
-        ball = null;
-        hole = null;
     }
 
     @Override
