@@ -1,4 +1,4 @@
-package no.birdygolf.gruppe19.systems;
+package no.birdygolf.gruppe19.system;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
@@ -10,8 +10,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.List;
 
-import no.birdygolf.gruppe19.components.PhysicsComponent;
-import no.birdygolf.gruppe19.components.RectangleComponent;
+import no.birdygolf.gruppe19.component.PhysicsComponent;
+import no.birdygolf.gruppe19.component.RectangleComponent;
 
 import static com.badlogic.gdx.graphics.glutils.ShapeRenderer.*;
 

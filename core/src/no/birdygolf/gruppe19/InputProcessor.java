@@ -1,7 +1,7 @@
 package no.birdygolf.gruppe19;
 
-import no.birdygolf.gruppe19.systems.MovementSystem;
-import com.badlogic.ashley.core.Entity;
+import no.birdygolf.gruppe19.system.MovementSystem;
+
 import com.badlogic.gdx.InputAdapter;
 
 public class InputProcessor extends InputAdapter {

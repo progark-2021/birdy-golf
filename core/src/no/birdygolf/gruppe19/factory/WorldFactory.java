@@ -14,13 +14,13 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 import no.birdygolf.gruppe19.Assets;
-import no.birdygolf.gruppe19.components.BallComponent;
-import no.birdygolf.gruppe19.components.HoleComponent;
-import no.birdygolf.gruppe19.components.MovementComponent;
-import no.birdygolf.gruppe19.components.PhysicsComponent;
-import no.birdygolf.gruppe19.components.RectangleComponent;
-import no.birdygolf.gruppe19.components.SpriteComponent;
-import no.birdygolf.gruppe19.levels.Level_rect;
+import no.birdygolf.gruppe19.component.BallComponent;
+import no.birdygolf.gruppe19.component.HoleComponent;
+import no.birdygolf.gruppe19.component.MovementComponent;
+import no.birdygolf.gruppe19.component.PhysicsComponent;
+import no.birdygolf.gruppe19.component.RectangleComponent;
+import no.birdygolf.gruppe19.component.SpriteComponent;
+import no.birdygolf.gruppe19.level.Level_rect;
 
 // Creates the ball entity and adds all the comnponents belonging to this entity
 public class WorldFactory {

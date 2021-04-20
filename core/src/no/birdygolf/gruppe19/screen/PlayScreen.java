@@ -25,12 +25,12 @@ import no.birdygolf.gruppe19.BirdyGolf;
 import no.birdygolf.gruppe19.GameManager;
 import no.birdygolf.gruppe19.InputProcessor;
 import no.birdygolf.gruppe19.factory.WorldFactory;
-import no.birdygolf.gruppe19.levels.Level_rect;
-import no.birdygolf.gruppe19.systems.HoleSystem;
-import no.birdygolf.gruppe19.systems.LevelSystem;
-import no.birdygolf.gruppe19.systems.MovementSystem;
-import no.birdygolf.gruppe19.systems.RenderingObsSystem;
-import no.birdygolf.gruppe19.systems.RenderingSystem;
+import no.birdygolf.gruppe19.level.Level_rect;
+import no.birdygolf.gruppe19.system.HoleSystem;
+import no.birdygolf.gruppe19.system.LevelSystem;
+import no.birdygolf.gruppe19.system.MovementSystem;
+import no.birdygolf.gruppe19.system.RenderingObsSystem;
+import no.birdygolf.gruppe19.system.RenderingSystem;
 
 public class PlayScreen extends ScreenAdapter {
     private static PlayScreen instance;

@@ -1,4 +1,4 @@
-package no.birdygolf.gruppe19.levels;
+package no.birdygolf.gruppe19.level;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;

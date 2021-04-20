@@ -1,4 +1,4 @@
-package no.birdygolf.gruppe19.components;
+package no.birdygolf.gruppe19.component;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.physics.box2d.Fixture;

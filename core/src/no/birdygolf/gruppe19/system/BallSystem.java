@@ -1,12 +1,12 @@
-package no.birdygolf.gruppe19.systems;
+package no.birdygolf.gruppe19.system;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 
-import no.birdygolf.gruppe19.components.BallComponent;
-import no.birdygolf.gruppe19.components.MovementComponent;
+import no.birdygolf.gruppe19.component.BallComponent;
+import no.birdygolf.gruppe19.component.MovementComponent;
 import no.birdygolf.gruppe19.factory.WorldFactory;
 
 //Detecting the

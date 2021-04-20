@@ -1,20 +1,14 @@
-package no.birdygolf.gruppe19.systems;
+package no.birdygolf.gruppe19.system;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 
-import java.util.List;
-
-import no.birdygolf.gruppe19.components.MovementComponent;
-import no.birdygolf.gruppe19.components.PhysicsComponent;
-import no.birdygolf.gruppe19.components.RectangleComponent;
-import no.birdygolf.gruppe19.components.SpriteComponent;
+import no.birdygolf.gruppe19.component.PhysicsComponent;
+import no.birdygolf.gruppe19.component.SpriteComponent;
 
 public class RenderingSystem extends IteratingSystem {
     // Entity level

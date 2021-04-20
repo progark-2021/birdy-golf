@@ -1,4 +1,4 @@
-package no.birdygolf.gruppe19.systems;
+package no.birdygolf.gruppe19.system;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
@@ -6,9 +6,9 @@ import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.utils.ImmutableArray;
 
-import no.birdygolf.gruppe19.components.PhysicsComponent;
+import no.birdygolf.gruppe19.component.PhysicsComponent;
 import no.birdygolf.gruppe19.factory.WorldFactory;
-import no.birdygolf.gruppe19.levels.Level_rect;
+import no.birdygolf.gruppe19.level.Level_rect;
 
 public class LevelSystem extends EntitySystem {
     private static final Family family = Family.all(PhysicsComponent.class).get();

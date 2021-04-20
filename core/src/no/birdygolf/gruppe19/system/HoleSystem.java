@@ -1,15 +1,13 @@
-package no.birdygolf.gruppe19.systems;
+package no.birdygolf.gruppe19.system;
 
-import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Fixture;
 
-import no.birdygolf.gruppe19.components.BallComponent;
-import no.birdygolf.gruppe19.components.HoleComponent;
-import no.birdygolf.gruppe19.components.PhysicsComponent;
+import no.birdygolf.gruppe19.component.BallComponent;
+import no.birdygolf.gruppe19.component.HoleComponent;
+import no.birdygolf.gruppe19.component.PhysicsComponent;
 
 public class HoleSystem extends EntitySystem {
     private Fixture ball;
