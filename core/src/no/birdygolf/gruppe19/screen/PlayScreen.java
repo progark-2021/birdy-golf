@@ -1,6 +1,7 @@
 package no.birdygolf.gruppe19.screen;
 
 import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
@@ -58,7 +59,7 @@ public class PlayScreen extends ScreenAdapter {
 
     private PlayScreen(BirdyGolf game) {
         this.game = game;
-        this.engine = new Engine();
+        this.engine = new PooledEngine();
         this.factory = new WorldFactory(engine);
         this.stage = new Stage();
         this.movementSystem = new MovementSystem();
