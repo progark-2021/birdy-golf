@@ -129,7 +129,7 @@ public class PlayScreen extends ScreenAdapter {
         soundButton = new ImageButton(soundDrawable);
         muteButton = new ImageButton(muteDrawable);
         quitButton = new ImageButton(quitDrawable);
-        quitButton.addListener(createInputListener(game, TitleScreen.getInstance(game)));
+        quitButton.addListener(createInputListener(game, QuitGameScreen.getInstance(game)));
 
         infoParameter.size = 30;
         infoFont = game.font.generateFont(infoParameter);
