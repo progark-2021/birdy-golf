@@ -12,13 +12,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -39,20 +37,15 @@ public class PlayScreen extends ScreenAdapter {
     private static PlayScreen instance;
 
     private final MovementSystem movementSystem;
-    Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
     BirdyGolf game;
     Stage stage;
     WorldFactory factory;
     World world;
     Engine engine;
     InputMultiplexer inputMultiplexer;
-    //TextButton titleScreen;
-    //TextButton.TextButtonStyle textButtonStyle;
     FitViewport viewport;
     FreeTypeFontGenerator.FreeTypeFontParameter infoParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    //FreeTypeFontGenerator.FreeTypeFontParameter buttonParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
     BitmapFont infoFont;
-    //BitmapFont buttonFont;
     Label info;
     Label.LabelStyle infoStyle;
 
@@ -135,16 +128,15 @@ public class PlayScreen extends ScreenAdapter {
         infoFont = game.font.generateFont(infoParameter);
 
 
-
         infoStyle = new Label.LabelStyle();
         infoStyle.font = infoFont;
         info = new Label("player: score", infoStyle);
 
         layout = new Table();
         layout.add(muteButton).width(50);
-        layout.add(soundButton).width(50).padRight(40);
-        layout.add(info).width(220);
-        layout.add(quitButton).width(50);
+        layout.add(soundButton).width(50).padRight(10);
+        layout.add(info).width(250);
+        layout.add(quitButton).width(40);
 
 
         //initializing the music buttons
@@ -256,7 +248,7 @@ public class PlayScreen extends ScreenAdapter {
                 playerName = playerName.substring(0, 7) + "..";
             }
             info.setText(
-                    (playerName == ""
+                    (playerName.equals("")
                             ? "Player " + (GameManager.INSTANCE.playerTurn + 1)
                             : playerName)
                             + ": "
