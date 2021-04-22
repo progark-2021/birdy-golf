@@ -42,6 +42,7 @@ public class PlayerSelectScreen extends ScreenAdapter {
 
     TextButton playGame;
     TextButton addPlayer;
+    TextButton titleScreen;
     TextButtonStyle textButtonStyle;
 
     TextField.TextFieldStyle textFieldStyle;
@@ -111,6 +112,9 @@ public class PlayerSelectScreen extends ScreenAdapter {
         playGame.pad(15);
         playGame.addListener(createInputListener(game, PlayScreen.getInstance(game)));
 
+        titleScreen = new TextButton("Back to Menu", textButtonStyle);
+        titleScreen.pad(15);
+        titleScreen.addListener(createInputListener(game, TitleScreen.getInstance(game)));
 
         textFieldStyle = new TextField.TextFieldStyle();
         textFieldStyle.font = buttonFont;
@@ -159,7 +163,10 @@ public class PlayerSelectScreen extends ScreenAdapter {
         }
         layout.add(playGame).width(400).pad(10);
         layout.row();
+        layout.add(titleScreen).width(400).padTop(60);
+        layout.row();
         layout.pad(10f);
+
 
         stage.addActor(layout);
         layout.setPosition(

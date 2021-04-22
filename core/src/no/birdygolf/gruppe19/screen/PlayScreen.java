@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -32,11 +31,12 @@ import no.birdygolf.gruppe19.system.MovementSystem;
 import no.birdygolf.gruppe19.system.RenderingObsSystem;
 import no.birdygolf.gruppe19.system.RenderingSystem;
 
+import static no.birdygolf.gruppe19.screen.ScreenUtils.createInputListener;
+
 public class PlayScreen extends ScreenAdapter {
     private static PlayScreen instance;
 
     private final MovementSystem movementSystem;
-    Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
     BirdyGolf game;
     Stage stage;
     WorldFactory factory;
@@ -48,11 +48,12 @@ public class PlayScreen extends ScreenAdapter {
     BitmapFont infoFont;
     Label info;
     Label.LabelStyle infoStyle;
+
     private float accumulator = 0;
     private Table layout;
-    private TextureRegion sound, mute;
-    private TextureRegionDrawable soundDrawable, muteDrawable;
-    private ImageButton soundButton, muteButton;
+    private TextureRegion sound, mute, quit;
+    private TextureRegionDrawable soundDrawable, muteDrawable, quitDrawable;
+    private ImageButton soundButton, muteButton, quitButton;
     private boolean muted = false;
     private Music music;
 
@@ -114,13 +115,18 @@ public class PlayScreen extends ScreenAdapter {
 
         sound = new TextureRegion(new Texture("music/sound.png"));
         mute = new TextureRegion(new Texture("music/mute.png"));
+        quit = new TextureRegion(new Texture("ui/quit.png"));
         soundDrawable = new TextureRegionDrawable(sound);
         muteDrawable = new TextureRegionDrawable(mute);
+        quitDrawable = new TextureRegionDrawable(quit);
         soundButton = new ImageButton(soundDrawable);
         muteButton = new ImageButton(muteDrawable);
+        quitButton = new ImageButton(quitDrawable);
+        quitButton.addListener(createInputListener(game, QuitGameScreen.getInstance(game)));
 
         infoParameter.size = 30;
         infoFont = game.font.generateFont(infoParameter);
+
 
         infoStyle = new Label.LabelStyle();
         infoStyle.font = infoFont;
@@ -128,10 +134,12 @@ public class PlayScreen extends ScreenAdapter {
 
         layout = new Table();
         layout.add(muteButton).width(50);
-        layout.add(soundButton).width(50).padRight(40);
-        layout.add(info).width(220);
+        layout.add(soundButton).width(50).padRight(10);
+        layout.add(info).width(250);
+        layout.add(quitButton).width(40);
 
-        //initializing the buttons
+
+        //initializing the music buttons
         if (!muted) {
             soundButton.setVisible(false);
         } else {
@@ -240,7 +248,7 @@ public class PlayScreen extends ScreenAdapter {
                 playerName = playerName.substring(0, 7) + "..";
             }
             info.setText(
-                    (playerName == ""
+                    (playerName.equals("")
                             ? "Player " + (GameManager.INSTANCE.playerTurn + 1)
                             : playerName)
                             + ": "
@@ -253,5 +261,6 @@ public class PlayScreen extends ScreenAdapter {
     public void dispose() {
         stage.dispose();
         music.dispose();
+
     }
 }
