@@ -133,17 +133,17 @@ public class PlayScreen extends ScreenAdapter {
         info = new Label("player: score", infoStyle);
 
         layout = new Table();
-        layout.add(muteButton).width(50);
-        layout.add(soundButton).width(50).padRight(10);
+        layout.add(soundButton).width(50);
+        layout.add(muteButton).width(50).padRight(10);
         layout.add(info).width(250);
         layout.add(quitButton).width(40);
 
 
         //initializing the music buttons
         if (!muted) {
-            soundButton.setVisible(false);
-        } else {
             muteButton.setVisible(false);
+        } else {
+            soundButton.setVisible(false);
         }
 
         stage.addActor(layout);
@@ -161,21 +161,21 @@ public class PlayScreen extends ScreenAdapter {
         inputMultiplexer.addProcessor(new InputProcessor(engine.getSystem(movementSystem.getClass())));
         Gdx.input.setInputProcessor(inputMultiplexer);
 
-        soundButton.addListener(event -> {
+        muteButton.addListener(event -> {
             muted = false;
             music.play();
             music.setLooping(true);
-            soundButton.setVisible(false);
-            muteButton.setVisible(true);
+            soundButton.setVisible(true);
+            muteButton.setVisible(false);
 
             return false;
         });
 
-        muteButton.addListener(event -> {
+        soundButton.addListener(event -> {
             muted = true;
             music.stop();
-            soundButton.setVisible(true);
-            muteButton.setVisible(false);
+            soundButton.setVisible(false);
+            muteButton.setVisible(true);
 
             return false;
         });
