@@ -192,6 +192,7 @@ public class PlayScreen extends ScreenAdapter {
         engine.getSystem(RenderingSystem.class).setProcessing(false);
         engine.getSystem(RenderingObsSystem.class).setProcessing(false);
         engine.getSystem(HoleSystem.class).setProcessing(false);
+        dispose();
     }
 
     @Override

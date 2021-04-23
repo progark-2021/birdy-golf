@@ -13,7 +13,7 @@ import no.birdygolf.gruppe19.component.PhysicsComponent;
 public class MovementSystem extends EntitySystem {
     public static boolean charging = false;
     public Vector2 startDrag;
-    boolean wasPressed = false;
+    private boolean wasPressed = false;
     private int currentScreenX;
     private int currentScreenY;
     private Entity golfBall;

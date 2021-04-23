@@ -123,8 +123,6 @@ public class TutorialScreen  extends ScreenAdapter {
         text_info = new Label(
                 "This is a golf game! \n\n" +
                 "The game has four levels, \n" +
-                "and in each levels you have\n" +
-                "five hits. \n\n" +
                 "To hit the golf ball\n" +
                 "drag your finger and release",labelStyle_text);
 
