@@ -30,7 +30,14 @@ public class GameManager {
     }
 
     public void resetGame() {
-        // Post scores to firebase
+        playerTurn = 0;
+        currentScore = 0;
+        playerNames.clear();
+        playerHits.clear();
+        currentLevel = -1;
+    }
+
+    public void postScores() {
         for (int i = 0; i < playerNames.size(); i++) {
             firebaseApi.postScore(
                     new ScoreDto(
@@ -41,11 +48,5 @@ public class GameManager {
                     )
             );
         }
-
-        playerTurn = 0;
-        playerNames.clear();
-        playerHits.clear();
-        currentLevel = -1;
     }
-
 }

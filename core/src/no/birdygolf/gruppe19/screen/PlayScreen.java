@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -31,20 +30,19 @@ import no.birdygolf.gruppe19.system.MovementSystem;
 import no.birdygolf.gruppe19.system.RenderingObsSystem;
 import no.birdygolf.gruppe19.system.RenderingSystem;
 
-import static com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.*;
+import static com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import static no.birdygolf.gruppe19.screen.ScreenUtils.createInputListener;
 
 public class PlayScreen extends ScreenAdapter {
     private static PlayScreen instance;
-    private final MovementSystem movementSystem;
-    private BirdyGolf game;
+    private final BirdyGolf game;
+    private final WorldFactory factory;
+    private final Engine engine;
+    private final FreeTypeFontParameter infoParameter = new FreeTypeFontParameter();
     private Stage stage;
-    private WorldFactory factory;
     private World world;
-    private Engine engine;
     private InputMultiplexer inputMultiplexer;
     private FitViewport viewport;
-    private FreeTypeFontParameter infoParameter = new FreeTypeFontParameter();
     private BitmapFont infoFont;
     private Label info;
     private Label.LabelStyle infoStyle;
@@ -62,9 +60,8 @@ public class PlayScreen extends ScreenAdapter {
         this.engine = new PooledEngine();
         this.factory = new WorldFactory(engine);
         this.stage = new Stage();
-        this.movementSystem = new MovementSystem();
 
-        engine.addSystem(movementSystem);
+        engine.addSystem(new MovementSystem());
         engine.addSystem(new RenderingSystem(game.batch));
         engine.addSystem(new RenderingObsSystem(game.camera));
         engine.addSystem(new LevelSystem(factory));
@@ -94,8 +91,8 @@ public class PlayScreen extends ScreenAdapter {
 
         // Stop game if last level has been played
         if (currentLevel == Level.values().length) {
+            GameManager.INSTANCE.postScores();
             music.stop();
-            GameManager.INSTANCE.resetGame();
             game.setScreen(HighScoreScreen.getInstance(game));
             return;
         }
@@ -158,7 +155,7 @@ public class PlayScreen extends ScreenAdapter {
         createUi();
         inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(stage);
-        inputMultiplexer.addProcessor(new InputProcessor(engine.getSystem(movementSystem.getClass())));
+        inputMultiplexer.addProcessor(new InputProcessor(engine.getSystem(MovementSystem.class)));
         Gdx.input.setInputProcessor(inputMultiplexer);
 
         muteButton.addListener(event -> {
