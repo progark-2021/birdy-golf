@@ -9,10 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.ArrayList;
@@ -28,21 +30,17 @@ public class PlayerSelectScreen extends ScreenAdapter {
     private static final List<TextField> fields = new ArrayList<>();
     private static final int MAX_PLAYERS = 4;
     private static PlayerSelectScreen instance;
-    private BirdyGolf game;
+    private final BirdyGolf game;
+    private final FreeTypeFontParameter titleParameter = new FreeTypeFontParameter();
+    private final FreeTypeFontParameter buttonParameter = new FreeTypeFontParameter();
     private FitViewport viewport;
-
     private Stage stage;
     private Table layout;
     private Label titleUpper, titleLower;
-    private Label.LabelStyle labelStyle;
-
+    private LabelStyle labelStyle;
     private TextButton playGame, addPlayer, titleScreen;
     private TextButtonStyle textButtonStyle;
-
-    private TextField.TextFieldStyle textFieldStyle;
-
-    private FreeTypeFontParameter titleParameter = new FreeTypeFontParameter();
-    private FreeTypeFontParameter buttonParameter = new FreeTypeFontParameter();
+    private TextFieldStyle textFieldStyle;
     private BitmapFont titleFont, buttonFont;
 
     private PlayerSelectScreen(BirdyGolf game) {
@@ -73,6 +71,9 @@ public class PlayerSelectScreen extends ScreenAdapter {
 
     @Override
     public void show() {
+        // Clear current game state at start of new game
+        GameManager.INSTANCE.resetGame();
+
         createUi();
         Gdx.input.setInputProcessor(stage);
     }
@@ -107,13 +108,17 @@ public class PlayerSelectScreen extends ScreenAdapter {
         titleScreen.pad(15);
         titleScreen.addListener(createInputListener(game, TitleScreen.getInstance(game)));
 
-        textFieldStyle = new TextField.TextFieldStyle();
+        textFieldStyle = new TextFieldStyle();
         textFieldStyle.font = buttonFont;
         textFieldStyle.fontColor = Color.BLACK;
         textFieldStyle.background = game.skin.getDrawable("yellow_panel");
 
         fields.clear();
-        players.forEach(player -> fields.add(new TextField(player, textFieldStyle)));
+        players.forEach(player -> {
+            TextField textField = new TextField(player, textFieldStyle);
+            textField.setMessageText("Enter name...");
+            fields.add(textField);
+        });
 
         addPlayer = new TextButton("Add Player", textButtonStyle);
         addPlayer.pad(15);
@@ -131,7 +136,7 @@ public class PlayerSelectScreen extends ScreenAdapter {
             }
         });
 
-        labelStyle = new Label.LabelStyle();
+        labelStyle = new LabelStyle();
         labelStyle.font = titleFont;
         titleUpper = new Label("Select", labelStyle);
         titleLower = new Label("Players", labelStyle);
