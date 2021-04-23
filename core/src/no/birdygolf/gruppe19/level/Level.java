@@ -98,7 +98,6 @@ public enum Level {
             new Rectangle(180, 345, 120, 100)
     );
 
-
     public final Vector2 holePosition;
     public final Vector2 startPosition;
     public final List<Rectangle> obstacles;

@@ -28,30 +28,22 @@ public class PlayerSelectScreen extends ScreenAdapter {
     private static final List<TextField> fields = new ArrayList<>();
     private static final int MAX_PLAYERS = 4;
     private static PlayerSelectScreen instance;
+    private BirdyGolf game;
+    private FitViewport viewport;
 
-    BirdyGolf game;
+    private Stage stage;
+    private Table layout;
+    private Label titleUpper, titleLower;
+    private Label.LabelStyle labelStyle;
 
-    FitViewport viewport;
+    private TextButton playGame, addPlayer, titleScreen;
+    private TextButtonStyle textButtonStyle;
 
-    Stage stage;
-    Table layout;
+    private TextField.TextFieldStyle textFieldStyle;
 
-    Label titleUpper;
-    Label titleLower;
-    Label.LabelStyle labelStyle;
-
-    TextButton playGame;
-    TextButton addPlayer;
-    TextButton titleScreen;
-    TextButtonStyle textButtonStyle;
-
-    TextField.TextFieldStyle textFieldStyle;
-
-    FreeTypeFontParameter titleParameter = new FreeTypeFontParameter();
-    FreeTypeFontParameter buttonParameter = new FreeTypeFontParameter();
-    BitmapFont titleFont;
-    BitmapFont buttonFont;
-
+    private FreeTypeFontParameter titleParameter = new FreeTypeFontParameter();
+    private FreeTypeFontParameter buttonParameter = new FreeTypeFontParameter();
+    private BitmapFont titleFont, buttonFont;
 
     private PlayerSelectScreen(BirdyGolf game) {
         this.game = game;
@@ -61,7 +53,6 @@ public class PlayerSelectScreen extends ScreenAdapter {
         if (instance == null) {
             instance = new PlayerSelectScreen(game);
         }
-
         players.clear();
         players.add("");
 

@@ -12,32 +12,25 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import no.birdygolf.gruppe19.BirdyGolf;
 
+import static com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.*;
 import static no.birdygolf.gruppe19.screen.ScreenUtils.createInputListener;
 
 public class QuitGameScreen  extends ScreenAdapter {
     private static QuitGameScreen instance;
+    private BirdyGolf game;
+    private FitViewport viewport;
 
-    BirdyGolf game;
+    private Stage stage;
+    private Table layout;
 
-    FitViewport viewport;
+    private Label titleUpper, titleLower, text_info;
+    private TextButton titleScreen;
+    private TextButton.TextButtonStyle textButtonStyle;
 
-    Stage stage;
-    Table layout;
-
-
-    Label titleUpper, titleLower;
-
-    Label text_info;
-
-    TextButton titleScreen;
-    TextButton.TextButtonStyle textButtonStyle;
-
-    FreeTypeFontGenerator.FreeTypeFontParameter titleParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    FreeTypeFontGenerator.FreeTypeFontParameter buttonParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    FreeTypeFontGenerator.FreeTypeFontParameter textParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    BitmapFont titleFont;
-    BitmapFont buttonFont;
-    BitmapFont textFont;
+    private FreeTypeFontParameter titleParameter = new FreeTypeFontParameter();
+    private FreeTypeFontParameter buttonParameter = new FreeTypeFontParameter();
+    private FreeTypeFontParameter textParameter = new FreeTypeFontParameter();
+    private BitmapFont titleFont, buttonFont, textFont;
 
     private QuitGameScreen(BirdyGolf game) {
         this.game = game;
@@ -52,9 +45,7 @@ public class QuitGameScreen  extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-
         stage.draw();
-       // stage.act(delta);
     }
 
     @Override
@@ -128,8 +119,6 @@ public class QuitGameScreen  extends ScreenAdapter {
                 (viewport.getWorldWidth() - layout.getWidth()) / 2,
                 (viewport.getWorldHeight() - layout.getHeight())/2
         );
-
-
     }
 
 }

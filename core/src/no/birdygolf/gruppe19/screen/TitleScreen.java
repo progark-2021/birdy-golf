@@ -17,28 +17,25 @@ import static no.birdygolf.gruppe19.screen.ScreenUtils.createInputListener;
 
 public class TitleScreen extends ScreenAdapter {
     private static TitleScreen instance;
+    private BirdyGolf game;
+    private FitViewport viewport;
 
-    BirdyGolf game;
+    private Stage stage;
+    private Table layout;
 
-    FitViewport viewport;
+    private Label titleUpper;
+    private Label titleLower;
+    private Label.LabelStyle labelStyle;
 
-    Stage stage;
-    Table layout;
+    private TextButton playGame;
+    private TextButton highScores;
+    private TextButton tutorial;
+    private TextButtonStyle textButtonStyle;
 
-    Label titleUpper;
-    Label titleLower;
-    Label.LabelStyle labelStyle;
-
-    TextButton playGame;
-    TextButton highScores;
-    TextButton tutorial;
-    TextButtonStyle textButtonStyle;
-
-    FreeTypeFontParameter titleParameter = new FreeTypeFontParameter();
-    FreeTypeFontParameter buttonParameter = new FreeTypeFontParameter();
-    BitmapFont titleFont;
-    BitmapFont buttonFont;
-
+    private FreeTypeFontParameter titleParameter = new FreeTypeFontParameter();
+    private FreeTypeFontParameter buttonParameter = new FreeTypeFontParameter();
+    private BitmapFont titleFont;
+    private BitmapFont buttonFont;
 
     private TitleScreen(BirdyGolf game) {
         this.game = game;
@@ -68,7 +65,6 @@ public class TitleScreen extends ScreenAdapter {
         createUi();
         Gdx.input.setInputProcessor(stage);
     }
-
 
     @Override
     public void hide() {

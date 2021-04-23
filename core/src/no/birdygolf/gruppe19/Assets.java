@@ -11,18 +11,11 @@ public class Assets {
 
     public static Sprite ball, obstacle, hole;
 
-    /*
-    public static Texture loadTexture (String file) {
-        return new Texture(file);
-	}
-	*/
-
-
     public static Sprite loadSprite (Texture texture) {
         return new Sprite(texture);
     }
+
     public static void load() {
-        //ball = loadTexture("sprites/golfball.png");
         ball = loadSprite(new Texture("sprites/golfball.png"));
         obstacle = loadSprite(new Texture("sprites/obstacle.png"));
         hole = loadSprite(new Texture("sprites/hole2.png"));

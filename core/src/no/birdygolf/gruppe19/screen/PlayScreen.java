@@ -31,23 +31,23 @@ import no.birdygolf.gruppe19.system.MovementSystem;
 import no.birdygolf.gruppe19.system.RenderingObsSystem;
 import no.birdygolf.gruppe19.system.RenderingSystem;
 
+import static com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.*;
 import static no.birdygolf.gruppe19.screen.ScreenUtils.createInputListener;
 
 public class PlayScreen extends ScreenAdapter {
     private static PlayScreen instance;
-
     private final MovementSystem movementSystem;
-    BirdyGolf game;
-    Stage stage;
-    WorldFactory factory;
-    World world;
-    Engine engine;
-    InputMultiplexer inputMultiplexer;
-    FitViewport viewport;
-    FreeTypeFontGenerator.FreeTypeFontParameter infoParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    BitmapFont infoFont;
-    Label info;
-    Label.LabelStyle infoStyle;
+    private BirdyGolf game;
+    private Stage stage;
+    private WorldFactory factory;
+    private World world;
+    private Engine engine;
+    private InputMultiplexer inputMultiplexer;
+    private FitViewport viewport;
+    private FreeTypeFontParameter infoParameter = new FreeTypeFontParameter();
+    private BitmapFont infoFont;
+    private Label info;
+    private Label.LabelStyle infoStyle;
 
     private float accumulator = 0;
     private Table layout;
