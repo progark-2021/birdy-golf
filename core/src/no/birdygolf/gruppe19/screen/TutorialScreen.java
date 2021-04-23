@@ -17,37 +17,33 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import no.birdygolf.gruppe19.BirdyGolf;
 
+import static com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.*;
 import static no.birdygolf.gruppe19.screen.ScreenUtils.createInputListener;
 
 public class TutorialScreen  extends ScreenAdapter {
     private static TutorialScreen instance;
+    private BirdyGolf game;
+    private FitViewport viewport;
+    private Stage stage;
+    private Table layout, scrollPane_layout;
+    private Image dragFinger;
+    private Label title;
 
-    BirdyGolf game;
+    private Label text_single_player, text_multi_player, text_info, text_rules, text_level_switch;
+    private Label single_player, multi_player, rules, info;
 
-    FitViewport viewport;
+    private TextButton titleScreen;
+    private TextButton.TextButtonStyle textButtonStyle;
 
-    Stage stage;
-    Table layout, scrollPane_layout;
-
-    Image dragFinger;
-
-    Label title;
-
-    Label text_single_player, text_multi_player, text_info, text_rules, text_level_switch;
-    Label single_player, multi_player, rules, info;
-
-    TextButton titleScreen;
-    TextButton.TextButtonStyle textButtonStyle;
-
-    ScrollPane scrollPane = new ScrollPane(new Table());
-    FreeTypeFontGenerator.FreeTypeFontParameter titleParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    FreeTypeFontGenerator.FreeTypeFontParameter buttonParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    FreeTypeFontGenerator.FreeTypeFontParameter subTitleParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    FreeTypeFontGenerator.FreeTypeFontParameter textParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    BitmapFont titleFont;
-    BitmapFont buttonFont;
-    BitmapFont subTitleFont;
-    BitmapFont textFont;
+    private ScrollPane scrollPane = new ScrollPane(new Table());
+    private FreeTypeFontParameter titleParameter = new FreeTypeFontParameter();
+    private FreeTypeFontParameter buttonParameter = new FreeTypeFontParameter();
+    private FreeTypeFontParameter subTitleParameter = new FreeTypeFontParameter();
+    private FreeTypeFontParameter textParameter = new FreeTypeFontParameter();
+    private BitmapFont titleFont;
+    private BitmapFont buttonFont;
+    private BitmapFont subTitleFont;
+    private BitmapFont textFont;
 
     private TutorialScreen(BirdyGolf game) {
         this.game = game;
@@ -62,7 +58,6 @@ public class TutorialScreen  extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-
         stage.draw();
         stage.act(delta);
     }

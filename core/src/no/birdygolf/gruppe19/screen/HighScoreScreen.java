@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.List;
@@ -20,32 +21,24 @@ import no.birdygolf.gruppe19.api.FirebaseStatus;
 import no.birdygolf.gruppe19.api.ScoreDto;
 import no.birdygolf.gruppe19.api.ScoreObserver;
 
+import static com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.*;
 import static no.birdygolf.gruppe19.screen.ScreenUtils.createInputListener;
 
 public class HighScoreScreen extends ScreenAdapter implements ScoreObserver {
     private static HighScoreScreen instance;
-
-    BirdyGolf game;
-
-    FitViewport viewport;
-
-    Stage stage;
-    Table layout;
-
-    Label.LabelStyle titleStyle;
-
-    TextButton titleScreen;
-    TextButton.TextButtonStyle textButtonStyle;
-
-    FreeTypeFontGenerator.FreeTypeFontParameter titleParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    FreeTypeFontGenerator.FreeTypeFontParameter buttonParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    FreeTypeFontGenerator.FreeTypeFontParameter listParameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    BitmapFont titleFont;
-    BitmapFont buttonFont;
-    BitmapFont listFont;
-
-    ScrollPane scrollPane = new ScrollPane(new Table());
-    Table highScoreTable;
+    private BirdyGolf game;
+    private FitViewport viewport;
+    private Stage stage;
+    private Table layout;
+    private Label.LabelStyle titleStyle;
+    private TextButton titleScreen;
+    private TextButtonStyle textButtonStyle;
+    private FreeTypeFontParameter titleParameter = new FreeTypeFontParameter();
+    private FreeTypeFontParameter buttonParameter = new FreeTypeFontParameter();
+    private FreeTypeFontParameter listParameter = new FreeTypeFontParameter();
+    private BitmapFont titleFont, buttonFont, listFont;
+    private ScrollPane scrollPane = new ScrollPane(new Table());
+    private Table highScoreTable;
 
     private HighScoreScreen(BirdyGolf game) {
         this.game = game;
@@ -106,7 +99,7 @@ public class HighScoreScreen extends ScreenAdapter implements ScoreObserver {
 
         stage = new Stage(viewport);
 
-        textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle = new TextButtonStyle();
         textButtonStyle.font = buttonFont;
         textButtonStyle.up = game.skin.getDrawable("blue_button00");
         textButtonStyle.down = game.skin.getDrawable("blue_button01");
